@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://hsk4hy2rnrkf"]
+
+[ext_resource type="Script" uid="uid://c2djvxdicte83" path="res://Classes/base_character.gd" id="1_hle0c"]
+[ext_resource type="Texture2D" uid="uid://coh4f1ewimmmg" path="res://Assets/sprites/dungeon_tileset.png" id="2_7lfkm"]
+[ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="3_vfgt8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bnqj1"]
+size = Vector2(15, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujfjl"]
+atlas = ExtResource("2_7lfkm")
+region = Rect2(144, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5bw5j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujfjl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="spikes" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_hle0c")
+metadata/_custom_type_script = "uid://c2djvxdicte83"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_bnqj1")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5bw5j")
+autoplay = "default"
+
+[node name="hitbox_component" type="Area2D" parent="." node_paths=PackedStringArray("killer")]
+script = ExtResource("3_vfgt8")
+killer = NodePath("..")
+damage = 1
+knockback_direction = Vector2(100, -300)
+stun_time = 1.0
+target_group = "Player"
+metadata/_custom_type_script = "uid://ckmbl6r4aef7j"
+
+[node name="collision" type="CollisionShape2D" parent="hitbox_component"]
+position = Vector2(0.5, 7)
+shape = SubResource("RectangleShape2D_bnqj1")
+debug_color = Color(1, 0, 0, 0.419608)
