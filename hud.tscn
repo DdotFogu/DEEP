@@ -1,0 +1,97 @@
+[gd_scene load_steps=8 format=3 uid="uid://w3ipc7py6m28"]
+
+[ext_resource type="Script" uid="uid://in8tujef0tp8" path="res://Classes/Ui/heart_ui.gd" id="1_8sq4i"]
+[ext_resource type="Texture2D" uid="uid://qdbhpmijgjbu" path="res://Assets/sprites/home.png" id="1_64ctp"]
+[ext_resource type="FontFile" uid="uid://d1uv461hk0yrw" path="res://Assets/fonts/camilla's-pixel.ttf" id="2_8sq4i"]
+[ext_resource type="Script" uid="uid://cmi8yicciwsp5" path="res://Classes/Ui/ammo_gui.gd" id="3_640wx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rdsdt"]
+font = ExtResource("2_8sq4i")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wh0ls"]
+atlas = ExtResource("1_64ctp")
+region = Rect2(439, 18, 67, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d26pf"]
+atlas = ExtResource("1_64ctp")
+region = Rect2(433, 21, 78, 6)
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="inGameUi" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="mainUi" type="Control" parent="inGameUi"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="inGameUi/mainUi"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 45.0
+offset_top = 21.0
+offset_right = -46.0
+offset_bottom = -154.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="heart_bar" type="HBoxContainer" parent="inGameUi/mainUi/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 1
+script = ExtResource("1_8sq4i")
+
+[node name="title" type="Control" parent="inGameUi/mainUi/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="title_label" type="Label" parent="inGameUi/mainUi/MarginContainer/title"]
+layout_mode = 2
+offset_left = -75.0
+offset_top = 2.0
+offset_right = 75.0
+offset_bottom = 18.0
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "home"
+label_settings = SubResource("LabelSettings_rdsdt")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ammo" type="Control" parent="inGameUi/mainUi/MarginContainer"]
+layout_mode = 2
+script = ExtResource("3_640wx")
+
+[node name="ammo_progress" type="TextureProgressBar" parent="inGameUi/mainUi/MarginContainer/ammo"]
+z_index = 1
+layout_mode = 0
+offset_left = 82.0
+offset_top = 1.0
+offset_right = 149.0
+offset_bottom = 3.0
+max_value = 1.0
+value = 1.0
+texture_progress = SubResource("AtlasTexture_wh0ls")
+
+[node name="ammo_bar" type="TextureRect" parent="inGameUi/mainUi/MarginContainer/ammo"]
+layout_mode = 2
+offset_left = 76.0
+offset_top = -1.0
+offset_right = 154.0
+offset_bottom = 5.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = SubResource("AtlasTexture_d26pf")

@@ -41,8 +41,8 @@ autoplay = "default"
 script = ExtResource("3_vfgt8")
 killer = NodePath("..")
 damage = 1
-knockback_direction = Vector2(100, -300)
-stun_time = 1.0
+knockback_direction = Vector2(200, -300)
+stun_time = 0.5
 target_group = "Player"
 metadata/_custom_type_script = "uid://ckmbl6r4aef7j"
 

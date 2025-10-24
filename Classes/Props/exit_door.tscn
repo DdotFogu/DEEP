@@ -1,0 +1,147 @@
+[gd_scene load_steps=20 format=3 uid="uid://ue62rlumwdxh"]
+
+[ext_resource type="Texture2D" uid="uid://cgykkhvaey5x3" path="res://Assets/sprites/door.png" id="1_cujke"]
+[ext_resource type="Script" uid="uid://disgmj8sw5l0w" path="res://Classes/Components/interact_componet.gd" id="1_uwr46"]
+[ext_resource type="Texture2D" uid="uid://d3tw1r6jx1n4g" path="res://Assets/sprites/arrow_cursor.png" id="2_8mw4d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0htd"]
+size = Vector2(11, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axgxu"]
+atlas = ExtResource("2_8mw4d")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tglh"]
+atlas = ExtResource("2_8mw4d")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ft8vo"]
+atlas = ExtResource("2_8mw4d")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vb2k"]
+atlas = ExtResource("2_8mw4d")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fefn"]
+atlas = ExtResource("2_8mw4d")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w6spb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axgxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2tglh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft8vo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vb2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fefn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyn4o"]
+atlas = ExtResource("1_cujke")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdqpm"]
+atlas = ExtResource("1_cujke")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqd0g"]
+atlas = ExtResource("1_cujke")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwgn5"]
+atlas = ExtResource("1_cujke")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86xni"]
+atlas = ExtResource("1_cujke")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq0qw"]
+atlas = ExtResource("1_cujke")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6q8i"]
+atlas = ExtResource("1_cujke")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdh31"]
+atlas = ExtResource("1_cujke")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w68fp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyn4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdqpm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqd0g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwgn5")
+}],
+"loop": false,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86xni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qq0qw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6q8i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdh31")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="exit_door" type="Node2D"]
+
+[node name="interact_component" type="Area2D" parent="."]
+script = ExtResource("1_uwr46")
+
+[node name="interact_area" type="CollisionShape2D" parent="interact_component"]
+z_index = 1
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_d0htd")
+debug_color = Color(1, 1, 0, 0.419608)
+
+[node name="arrow" type="AnimatedSprite2D" parent="interact_component"]
+visible = false
+position = Vector2(0.5, -11)
+sprite_frames = SubResource("SpriteFrames_w6spb")
+autoplay = "default"
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_w68fp")
+animation = &"open"
+autoplay = "close"
+
+[connection signal="body_enter" from="interact_component" to="sprite" method="play" binds= ["open"]]
+[connection signal="body_entered" from="interact_component" to="interact_component" method="body_entered"]
+[connection signal="body_exit" from="interact_component" to="sprite" method="play" binds= ["close"]]
+[connection signal="body_exited" from="interact_component" to="interact_component" method="body_exited"]

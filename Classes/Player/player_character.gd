@@ -1,6 +1,8 @@
 extends base_character
 class_name player_character
 
+func _init() -> void: global.player = self
+
 func input_direction() -> int:
 	var direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	return direction

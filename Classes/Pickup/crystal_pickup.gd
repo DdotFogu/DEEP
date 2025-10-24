@@ -4,6 +4,9 @@ class_name crystal_pickup
 func item_pickup(body: Node2D):
 	if body is player_character:
 		var proj_component : projectile_component = body.get_node('projectile_component')
-		if !proj_component or proj_component.can_fire == true: return
+		if proj_component.ammo == proj_component.max_ammo: return
+		if !active: return
 		super(body)
-		proj_component.can_fire = true
+		active = false
+		proj_component.add_ammo(1)
+		

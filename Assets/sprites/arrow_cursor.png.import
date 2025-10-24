@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7sbt2xfinuin"
-path="res://.godot/imported/player_sheet.png-73b7c66bfd81b5a2a72f042e04a32166.ctex"
+uid="uid://d3tw1r6jx1n4g"
+path="res://.godot/imported/arrow_cursor.png-b300e2cab55d5654423d8e3a982f7fc7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/sprites/player_sheet.png"
-dest_files=["res://.godot/imported/player_sheet.png-73b7c66bfd81b5a2a72f042e04a32166.ctex"]
+source_file="res://Assets/sprites/arrow_cursor.png"
+dest_files=["res://.godot/imported/arrow_cursor.png-b300e2cab55d5654423d8e3a982f7fc7.ctex"]
 
 [params]
 

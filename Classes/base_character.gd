@@ -7,15 +7,6 @@ class_name base_character
 func _ready() -> void:
 	if !debugger.character_array.has(self): debugger.character_array.append(self)
 
-func _process(_delta: float) -> void:
-	if !animation: return
-	
-	var normal = velocity.normalized()
-	if normal.x == 1:
-		animation.flip_h = false
-	elif normal.x == -1:
-		animation.flip_h = true
-
 func face_direction():
 	if !animation: return
 	

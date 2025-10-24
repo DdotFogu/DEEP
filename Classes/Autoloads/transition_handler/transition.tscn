@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhv2j0hvnlf3"]
+
+[ext_resource type="Script" uid="uid://7lx6mwopb5au" path="res://Classes/Autoloads/transition_handler/scene_handler.gd" id="1_050s6"]
+
+[sub_resource type="Animation" id="Animation_hkwek"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("color:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_050s6"]
+resource_name = "progress"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("color:color")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0.8), Color(0, 0, 0, 0.6), Color(0, 0, 0, 0.2), Color(0, 0, 0, 0.1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hkwek"]
+_data = {
+&"RESET": SubResource("Animation_hkwek"),
+&"progress": SubResource("Animation_050s6")
+}
+
+[node name="TRANSITION" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+script = ExtResource("1_050s6")
+
+[node name="transition_ui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="transition_ui"]
+libraries = {
+&"": SubResource("AnimationLibrary_hkwek")
+}
+autoplay = "RESET"
+
+[node name="color" type="ColorRect" parent="transition_ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
