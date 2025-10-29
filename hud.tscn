@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://w3ipc7py6m28"]
+[gd_scene load_steps=10 format=3 uid="uid://w3ipc7py6m28"]
 
 [ext_resource type="Script" uid="uid://in8tujef0tp8" path="res://Classes/Ui/heart_ui.gd" id="1_8sq4i"]
 [ext_resource type="Texture2D" uid="uid://qdbhpmijgjbu" path="res://Assets/sprites/home.png" id="1_64ctp"]
+[ext_resource type="Script" uid="uid://ctb1gooe5yyp4" path="res://Classes/Ui/title_gui.gd" id="2_1xsix"]
 [ext_resource type="FontFile" uid="uid://d1uv461hk0yrw" path="res://Assets/fonts/camilla's-pixel.ttf" id="2_8sq4i"]
 [ext_resource type="Script" uid="uid://cmi8yicciwsp5" path="res://Classes/Ui/ammo_gui.gd" id="3_640wx"]
+[ext_resource type="Script" uid="uid://dtp4ic4a1ob8e" path="res://Classes/Ui/fps_gui.gd" id="5_a2258"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rdsdt"]
 font = ExtResource("2_8sq4i")
@@ -56,6 +58,7 @@ script = ExtResource("1_8sq4i")
 [node name="title" type="Control" parent="inGameUi/mainUi/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+script = ExtResource("2_1xsix")
 
 [node name="title_label" type="Label" parent="inGameUi/mainUi/MarginContainer/title"]
 layout_mode = 2
@@ -95,3 +98,23 @@ offset_bottom = 5.0
 size_flags_horizontal = 4
 size_flags_vertical = 8
 texture = SubResource("AtlasTexture_d26pf")
+
+[node name="fps" type="Control" parent="inGameUi/mainUi/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("5_a2258")
+
+[node name="fps_label" type="Label" parent="inGameUi/mainUi/MarginContainer/fps"]
+layout_mode = 0
+offset_left = -29.0
+offset_top = -5.0
+offset_right = 107.0
+offset_bottom = 11.0
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "fps:"
+label_settings = SubResource("LabelSettings_rdsdt")
+horizontal_alignment = 1
+vertical_alignment = 1

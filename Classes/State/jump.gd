@@ -1,7 +1,7 @@
 extends state
 class_name jump
 
-func enter(msg:={}):
+func enter(_msg:={}):
 	animation.play('jump')
 	body.velocity.y -= stats.jump_height
 

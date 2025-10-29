@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://c8gyb4e3qyktp"]
+[gd_scene load_steps=45 format=3 uid="uid://c8gyb4e3qyktp"]
 
 [ext_resource type="Script" uid="uid://lswrihvyp3wb" path="res://Classes/Player/player_character.gd" id="1_8jt68"]
 [ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="2_cf8p7"]
@@ -6,7 +6,9 @@
 [ext_resource type="Script" uid="uid://bmmnvlqmtdoq6" path="res://Classes/State/state_machine.gd" id="4_cf8p7"]
 [ext_resource type="Script" uid="uid://d06dcrhk5vqou" path="res://Classes/Player/player_idle.gd" id="5_8jt68"]
 [ext_resource type="Script" uid="uid://dw4pjjpkmqfnb" path="res://Classes/Player/player_health.gd" id="5_my3k2"]
+[ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="5_rdxkg"]
 [ext_resource type="Script" uid="uid://bye0snk55abo6" path="res://Classes/Components/hurtbox_component.gd" id="5_u73eo"]
+[ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="6_j8lpi"]
 [ext_resource type="Script" uid="uid://bar1hy3jkmybr" path="res://Classes/Player/player_move.gd" id="6_nh3do"]
 [ext_resource type="Script" uid="uid://dx0r1wq1hrdrr" path="res://Classes/Player/player_projectile_componet.gd" id="7_e7f8n"]
 [ext_resource type="Script" uid="uid://c6dx7sqhg7rpf" path="res://Classes/Player/player_jump.gd" id="8_6w55k"]
@@ -15,15 +17,16 @@
 [ext_resource type="Script" uid="uid://orhfywad7py6" path="res://Classes/State/stun.gd" id="13_e7f8n"]
 [ext_resource type="PackedScene" uid="uid://eu6beov2p7ij" path="res://debug_label.tscn" id="14_8s7r7"]
 [ext_resource type="FontFile" uid="uid://d1uv461hk0yrw" path="res://Assets/fonts/camilla's-pixel.ttf" id="15_my3k2"]
+[ext_resource type="Script" uid="uid://bddrkejy8namb" path="res://Classes/State/dead.gd" id="16_j8lpi"]
 
 [sub_resource type="Resource" id="Resource_3uhgh"]
 script = ExtResource("2_cf8p7")
-max_health = 3
+max_health = 10
 max_speed = 100.0
 acceleration = 100.0
 friction = 30.0
 jump_height = 225.0
-invuln_time = 1.0
+invuln_time = 1.3
 metadata/_custom_type_script = "uid://bgvbi4djtrhg2"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x1kum"]
@@ -144,6 +147,16 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u73eo"]
 size = Vector2(4, 6)
 
+[sub_resource type="Resource" id="Resource_76qvs"]
+script = ExtResource("6_j8lpi")
+damage = 1.0
+knockback_force = 150
+stun_time = 1.0
+metadata/_custom_type_script = "uid://c5vkfnu5l6jx7"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jy48h"]
+size = Vector2(4, 6)
+
 [sub_resource type="Animation" id="Animation_8s7r7"]
 length = 0.001
 tracks/0/type = "value"
@@ -166,6 +179,71 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../hurtbox_component/collision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_j8lpi"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../projectile_component:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../state_machine")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["dead", {}],
+"method": &"state_change"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../hurtbox_component/collision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../sprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -201,6 +279,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8s7r7"]
 _data = {
 &"RESET": SubResource("Animation_8s7r7"),
+&"die": SubResource("Animation_j8lpi"),
 &"flash": SubResource("Animation_e7f8n")
 }
 
@@ -269,6 +348,18 @@ script = ExtResource("5_u73eo")
 shape = SubResource("RectangleShape2D_u73eo")
 debug_color = Color(0, 1, 0, 0.419608)
 
+[node name="projectile_hitbox_component" type="Area2D" parent="." node_paths=PackedStringArray("killer")]
+script = ExtResource("5_rdxkg")
+attack = SubResource("Resource_76qvs")
+killer = NodePath("..")
+target_groups = Array[String](["Enemy Projectile"])
+metadata/_custom_type_script = "uid://ckmbl6r4aef7j"
+
+[node name="collision" type="CollisionShape2D" parent="projectile_hitbox_component"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_jy48h")
+debug_color = Color(1, 0, 0, 0.419608)
+
 [node name="health_component" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
 script = ExtResource("5_my3k2")
 state_machine = NodePath("../state_machine")
@@ -281,9 +372,9 @@ libraries = {
 
 [node name="projectile_component" type="Node" parent="."]
 script = ExtResource("7_e7f8n")
-max_ammo = 3
+max_ammo = 999
 proj_scene = ExtResource("8_8s7r7")
-spawn_offset = Vector2(5, 0)
+spawn_offset = Vector2(5, -3)
 metadata/_custom_type_script = "uid://bbhlg6cchcm5m"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="projectile_component"]
@@ -316,7 +407,12 @@ metadata/_custom_type_script = "uid://fwd0snk35wo3"
 script = ExtResource("13_e7f8n")
 metadata/_custom_type_script = "uid://fwd0snk35wo3"
 
+[node name="dead" type="Node" parent="state_machine"]
+script = ExtResource("16_j8lpi")
+metadata/_custom_type_script = "uid://fwd0snk35wo3"
+
 [node name="debug" parent="." instance=ExtResource("14_8s7r7")]
+visible = false
 offset_left = -163.0
 offset_top = 1.0
 offset_right = 925.0
@@ -325,5 +421,6 @@ scale = Vector2(0.3, 0.3)
 label_settings = SubResource("LabelSettings_5shcc")
 
 [connection signal="hurtbox_hit" from="hurtbox_component" to="health_component" method="damage"]
+[connection signal="death" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["die"]]
 [connection signal="took_damage" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["flash"]]
 [connection signal="projectile_fired" from="projectile_component" to="projectile_component/AnimationPlayer" method="play" binds= ["fire"]]

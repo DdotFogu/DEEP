@@ -1,0 +1,136 @@
+[gd_scene load_steps=15 format=3 uid="uid://cheqatgfprcfd"]
+
+[ext_resource type="Texture2D" uid="uid://coh4f1ewimmmg" path="res://Assets/sprites/dungeon_tileset.png" id="1_lfr56"]
+[ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="2_e3h5x"]
+[ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="3_pum5b"]
+[ext_resource type="Script" uid="uid://c4nd4uxs7ft3f" path="res://Classes/Components/auto_projectile_component.gd" id="4_pum5b"]
+[ext_resource type="PackedScene" uid="uid://7mox680ywi4x" path="res://Classes/Projectile/saw.tscn" id="5_2sgh2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8dmlw"]
+size = Vector2(16, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sgh2"]
+atlas = ExtResource("1_lfr56")
+region = Rect2(144, 48, 16, 5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2sgh2"]
+load_path = "res://.godot/imported/dungeon_tileset.png-31a0cc1dba8b0a03c5868a6b26c5caca.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_th118"]
+atlas = SubResource("CompressedTexture2D_2sgh2")
+region = Rect2(148, 44, 8, 4)
+
+[sub_resource type="Animation" id="Animation_th118"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("saw:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("saw:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_2sgh2"]
+resource_name = "reload"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("saw:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5, 0.733333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -6), Vector2(0, -7), Vector2(0, -8), Vector2(0, -9), Vector2(0, -10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("saw:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_th118"]
+_data = {
+&"RESET": SubResource("Animation_th118"),
+&"reload": SubResource("Animation_2sgh2")
+}
+
+[sub_resource type="Resource" id="Resource_e3h5x"]
+script = ExtResource("3_pum5b")
+damage = 1.0
+knockback_force = 150
+stun_time = 0.5
+metadata/_custom_type_script = "uid://c5vkfnu5l6jx7"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_th118"]
+size = Vector2(8, 4)
+
+[node name="saw_spawn" type="StaticBody2D"]
+collision_layer = 6
+collision_mask = 0
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_8dmlw")
+
+[node name="ground" type="Sprite2D" parent="."]
+position = Vector2(0, -5.5)
+texture = SubResource("AtlasTexture_2sgh2")
+
+[node name="saw" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, -10)
+texture = SubResource("AtlasTexture_th118")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_th118")
+}
+autoplay = "RESET"
+speed_scale = 2.0
+
+[node name="hitbox_component" type="Area2D" parent="."]
+position = Vector2(0, -12)
+script = ExtResource("2_e3h5x")
+attack = SubResource("Resource_e3h5x")
+metadata/_custom_type_script = "uid://ckmbl6r4aef7j"
+
+[node name="collision" type="CollisionShape2D" parent="hitbox_component"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_th118")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="projectile_component" type="Node" parent="."]
+script = ExtResource("4_pum5b")
+direction = Vector2(0, -1)
+use_ammo = false
+proj_scene = ExtResource("5_2sgh2")
+spawn_offset = Vector2(0, -10)
+metadata/_custom_type_script = "uid://bo1ffxi0mgaq6"
+
+[connection signal="projectile_fired" from="projectile_component" to="AnimationPlayer" method="play" binds= ["reload"]]

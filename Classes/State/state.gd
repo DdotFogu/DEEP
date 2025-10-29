@@ -4,9 +4,10 @@ class_name state
 signal Transitioned
 signal Entered
 
+@onready var machine : state_machine = get_parent()
 @onready var animation : AnimatedSprite2D = owner.get_node("sprite")
 
-func enter(msg:={}):
+func enter(_msg:={}):
 	pass
 
 func exit():

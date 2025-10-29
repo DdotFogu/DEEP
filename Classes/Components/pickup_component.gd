@@ -9,6 +9,6 @@ signal pickup
 func _ready() -> void:
 	body_entered.connect(item_pickup)
 
-func item_pickup(body: Node2D):
+func item_pickup(_body: Node2D):
 	if !active: return
 	pickup.emit()

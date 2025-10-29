@@ -1,12 +1,10 @@
 extends state
-class_name idle
+class_name dead
 
 func enter(_msg:={}):
-	animation.play('idle')
+	animation.play('dead')
 
 func physics_update(_delta : float):
-	if not body.is_on_floor():
-		Transitioned.emit(self, 'air'); return
-	
 	body.velocity.x = lerpf(body.velocity.x, 0.0, stats.friction * _delta)
+	body.velocity += body.get_gravity() * _delta
 	body.move_and_slide()

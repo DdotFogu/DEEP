@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://hsk4hy2rnrkf"]
+[gd_scene load_steps=9 format=3 uid="uid://hsk4hy2rnrkf"]
 
 [ext_resource type="Script" uid="uid://c2djvxdicte83" path="res://Classes/base_character.gd" id="1_hle0c"]
 [ext_resource type="Texture2D" uid="uid://coh4f1ewimmmg" path="res://Assets/sprites/dungeon_tileset.png" id="2_7lfkm"]
 [ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="3_vfgt8"]
+[ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="4_7lfkm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bnqj1"]
 size = Vector2(15, 2)
@@ -22,6 +23,13 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Resource" id="Resource_vfgt8"]
+script = ExtResource("4_7lfkm")
+damage = 1.0
+knockback_force = 150
+stun_time = 0.5
+metadata/_custom_type_script = "uid://c5vkfnu5l6jx7"
+
 [node name="spikes" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 0
@@ -37,13 +45,9 @@ shape = SubResource("RectangleShape2D_bnqj1")
 sprite_frames = SubResource("SpriteFrames_5bw5j")
 autoplay = "default"
 
-[node name="hitbox_component" type="Area2D" parent="." node_paths=PackedStringArray("killer")]
+[node name="hitbox_component" type="Area2D" parent="."]
 script = ExtResource("3_vfgt8")
-killer = NodePath("..")
-damage = 1
-knockback_direction = Vector2(200, -300)
-stun_time = 0.5
-target_group = "Player"
+attack = SubResource("Resource_vfgt8")
 metadata/_custom_type_script = "uid://ckmbl6r4aef7j"
 
 [node name="collision" type="CollisionShape2D" parent="hitbox_component"]

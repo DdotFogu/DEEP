@@ -1,10 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://bvmpb2w3hvuw4"]
+[gd_scene load_steps=22 format=3 uid="uid://bvmpb2w3hvuw4"]
 
 [ext_resource type="Script" uid="uid://disgmj8sw5l0w" path="res://Classes/Components/interact_componet.gd" id="1_lyn4o"]
 [ext_resource type="Script" uid="uid://dm42hjdknv4mo" path="res://Classes/Components/scene_transitor.gd" id="2_aqd0g"]
 [ext_resource type="Texture2D" uid="uid://d3tw1r6jx1n4g" path="res://Assets/sprites/arrow_cursor.png" id="2_xdqpm"]
 [ext_resource type="Texture2D" uid="uid://cgykkhvaey5x3" path="res://Assets/sprites/door.png" id="3_aqd0g"]
-[ext_resource type="Script" uid="uid://dstrth0j5pbm" path="res://Classes/Components/transition_component.gd" id="3_bwpa2"]
 [ext_resource type="PackedScene" uid="uid://0s1oblrv5a3d" path="res://Classes/Dungeon/dungeon_scene.tscn" id="5_6ryhw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lxycn"]
@@ -140,10 +139,6 @@ sprite_frames = SubResource("SpriteFrames_080ip")
 autoplay = "default"
 frame_progress = 0.592466
 
-[node name="transition_component" type="Node" parent="."]
-script = ExtResource("3_bwpa2")
-metadata/_custom_type_script = "uid://dstrth0j5pbm"
-
 [node name="scene_transitor" type="Node" parent="."]
 script = ExtResource("2_aqd0g")
 scene = ExtResource("5_6ryhw")
@@ -158,5 +153,4 @@ autoplay = "close"
 [connection signal="body_entered" from="interact_component" to="interact_component" method="body_entered"]
 [connection signal="body_exit" from="interact_component" to="sprite" method="play" binds= ["close"]]
 [connection signal="body_exited" from="interact_component" to="interact_component" method="body_exited"]
-[connection signal="interact" from="interact_component" to="transition_component" method="await_transition"]
-[connection signal="transition_end" from="transition_component" to="scene_transitor" method="change_scene"]
+[connection signal="interact" from="interact_component" to="scene_transitor" method="trans_change_scene"]

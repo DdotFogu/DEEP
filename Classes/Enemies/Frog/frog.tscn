@@ -1,27 +1,28 @@
-[gd_scene load_steps=25 format=3 uid="uid://liou7gujwhux"]
+[gd_scene load_steps=29 format=3 uid="uid://liou7gujwhux"]
 
-[ext_resource type="Script" uid="uid://c2djvxdicte83" path="res://Classes/base_character.gd" id="1_1envl"]
+[ext_resource type="Script" uid="uid://d2t1mpxw7sxop" path="res://Classes/Enemies/base_enemy.gd" id="1_alf3h"]
 [ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="2_cs3f2"]
 [ext_resource type="Texture2D" uid="uid://csc4lbkl6ail8" path="res://Assets/sprites/character_sheets.png" id="3_ha3wn"]
 [ext_resource type="Script" uid="uid://bye0snk55abo6" path="res://Classes/Components/hurtbox_component.gd" id="4_u8q1p"]
+[ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="6_jq2lv"]
 [ext_resource type="Script" uid="uid://xguj3aga2d5m" path="res://Classes/Components/health_component.gd" id="6_r5y2g"]
 [ext_resource type="Script" uid="uid://bmmnvlqmtdoq6" path="res://Classes/State/state_machine.gd" id="7_rqsyr"]
 [ext_resource type="Script" uid="uid://orhfywad7py6" path="res://Classes/State/stun.gd" id="8_fotux"]
 [ext_resource type="Script" uid="uid://68ktwo883762" path="res://Classes/Enemies/Frog/frog_jump.gd" id="9_6cp15"]
-[ext_resource type="Script" uid="uid://ci1mkakccm0v3" path="res://iddddle.gd" id="9_alf3h"]
+[ext_resource type="Script" uid="uid://bu4ewuyh1nqb2" path="res://Classes/State/idle.gd" id="9_alf3h"]
 [ext_resource type="Script" uid="uid://dtxjwasofqgrm" path="res://Classes/State/air.gd" id="11_alf3h"]
 [ext_resource type="PackedScene" uid="uid://eu6beov2p7ij" path="res://debug_label.tscn" id="11_taygp"]
 [ext_resource type="FontFile" uid="uid://d1uv461hk0yrw" path="res://Assets/fonts/camilla's-pixel.ttf" id="12_e7rtc"]
 [ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="12_jm28o"]
 
-[sub_resource type="Resource" id="Resource_m2npi"]
+[sub_resource type="Resource" id="Resource_jq2lv"]
 script = ExtResource("2_cs3f2")
 max_health = 1
 max_speed = 100.0
 acceleration = 100.0
-friction = 100.0
+friction = 25.0
 jump_height = 200.0
-invuln_time = 0.1
+invuln_time = 1.0
 metadata/_custom_type_script = "uid://bgvbi4djtrhg2"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f50g0"]
@@ -35,7 +36,15 @@ region = Rect2(160, 16, 16, 16)
 atlas = ExtResource("3_ha3wn")
 region = Rect2(160, 16, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq2lv"]
+atlas = ExtResource("3_ha3wn")
+region = Rect2(160, 16, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_jm28o"]
+atlas = ExtResource("3_ha3wn")
+region = Rect2(160, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmgy1"]
 atlas = ExtResource("3_ha3wn")
 region = Rect2(160, 16, 16, 16)
 
@@ -59,15 +68,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_jq2lv")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_jm28o")
 }],
 "loop": true,
 "name": &"move",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mmgy1")
+}],
+"loop": true,
+"name": &"stun",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ory6w"]
 size = Vector2(8, 8)
+
+[sub_resource type="Resource" id="Resource_mmgy1"]
+script = ExtResource("6_jq2lv")
+damage = 1.0
+knockback_force = 150
+stun_time = 1.0
+metadata/_custom_type_script = "uid://c5vkfnu5l6jx7"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_alf3h"]
 size = Vector2(8, 8)
@@ -100,8 +132,8 @@ font = ExtResource("12_e7rtc")
 [node name="frog" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 32
 collision_mask = 2
-script = ExtResource("1_1envl")
-stats = SubResource("Resource_m2npi")
+script = ExtResource("1_alf3h")
+stats = SubResource("Resource_jq2lv")
 metadata/_custom_type_script = "uid://c2djvxdicte83"
 
 [node name="collision" type="CollisionShape2D" parent="."]
@@ -112,7 +144,7 @@ shape = SubResource("RectangleShape2D_f50g0")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_vrae4")
-animation = &"air"
+animation = &"jump"
 autoplay = "move"
 
 [node name="hurtbox_component" type="Area2D" parent="."]
@@ -127,11 +159,9 @@ debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="hitbox_component" type="Area2D" parent="." node_paths=PackedStringArray("killer")]
 script = ExtResource("12_jm28o")
+attack = SubResource("Resource_mmgy1")
 killer = NodePath("..")
-damage = 1
-knockback_direction = Vector2(200, 300)
-stun_time = 0.5
-target_group = "Player"
+target_groups = Array[String](["Player", "Player Projectile"])
 metadata/_custom_type_script = "uid://ckmbl6r4aef7j"
 
 [node name="collision" type="CollisionShape2D" parent="hitbox_component"]
@@ -164,6 +194,7 @@ metadata/_custom_type_script = "uid://fwd0snk35wo3"
 
 [node name="jump" type="Node" parent="state_machine"]
 script = ExtResource("9_6cp15")
+launch_range = Vector2(50, 100)
 metadata/_custom_type_script = "uid://fwd0snk35wo3"
 
 [node name="air" type="Node" parent="state_machine"]
@@ -171,6 +202,7 @@ script = ExtResource("11_alf3h")
 metadata/_custom_type_script = "uid://dtxjwasofqgrm"
 
 [node name="debug" parent="." instance=ExtResource("11_taygp")]
+visible = false
 offset_left = -163.0
 offset_top = 1.0
 offset_right = 925.0
@@ -178,10 +210,5 @@ offset_bottom = 17.0
 scale = Vector2(0.3, 0.3)
 label_settings = SubResource("LabelSettings_nyyi5")
 
-[node name="jump_timer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
-
 [connection signal="hurtbox_hit" from="hurtbox_component" to="health_component" method="damage"]
 [connection signal="death" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["die"]]
-[connection signal="timeout" from="jump_timer" to="state_machine" method="state_change" binds= ["jump", {}]]

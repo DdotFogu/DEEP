@@ -6,8 +6,8 @@ func _init() -> void:
 	signal_bus.player_max_health_changed.connect(set_max_hearts)
 	signal_bus.player_health_changed.connect(update_hearts)
 
-func set_max_hearts(max: int):
-	for i in range(max):
+func set_max_hearts(max_amount: int):
+	for i in range(max_amount):
 		var heart = heart_scene.instantiate()
 		add_child(heart)
 

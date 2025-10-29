@@ -17,7 +17,7 @@ func reset_proj():
 	start_lifetime()
 	proj_reset.emit()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var normal = velocity.normalized()
 	var sprite : AnimatedSprite2D = get_node('sprite')
 	

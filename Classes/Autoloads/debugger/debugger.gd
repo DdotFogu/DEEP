@@ -2,9 +2,6 @@ extends Node
 
 var character_array : Array[base_character]
 
-func _process(delta: float) -> void:
-	update_character_data()
-
 func update_character_data():
 	for character in character_array:
 		if character:

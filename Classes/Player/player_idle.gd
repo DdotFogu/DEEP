@@ -1,7 +1,7 @@
 extends idle
 class_name player_idle
 
-func enter(msg:={}):
+func enter(_msg:={}):
 	animation.play('idle')
 
 func physics_update(_delta : float):

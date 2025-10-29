@@ -1,6 +1,7 @@
 extends state
 class_name proj_idle
 
+#TODO: fix why it doesnt slow down
 func enter(_msg:={}):
 	animation.play('idle')
 

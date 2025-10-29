@@ -4,7 +4,7 @@ extends Area2D
 
 @onready var body : base_character = owner
 
-signal hurtbox_hit(attack : Attack)
+signal hurtbox_hit(attack : Attack, killer : Node)
 
 func _init() -> void:
 	collision_layer = 0
@@ -17,16 +17,9 @@ func hitbox_entered(Myhitbox : hitbox_component) -> void:
 	if Myhitbox == null:
 		return
 	
-	var target_group = Myhitbox.target_group
-	if !body.is_in_group(target_group):
-		print(str(target_group) + " =? " + str(body.name)); return
-	
-	Myhitbox.enemy_hit.emit()
-	
-	var attack = Attack.new()
-	attack.stun_time = Myhitbox.stun_time
-	attack.damage = Myhitbox.damage
-	attack.killer = Myhitbox.killer
-	attack.knockback_direction = Myhitbox.knockback_direction
-	
-	hurtbox_hit.emit(attack)
+	var target_groups = Myhitbox.target_groups
+	for target in target_groups:
+		if body.is_in_group(target): 
+			Myhitbox.enemy_hit.emit()
+			hurtbox_hit.emit(Myhitbox.attack, Myhitbox.killer)
+			break

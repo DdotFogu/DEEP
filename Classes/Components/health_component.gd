@@ -16,12 +16,11 @@ func _ready() -> void:
 	health = stats.max_health
 	
 	invuln_timer = Timer.new()
-	invuln_timer.wait_time = stats.invuln_time
-	add_child(invuln_timer)
-	
 	invuln_timer.timeout.connect(_invuln_over)
+	add_child(invuln_timer)
 
-func damage(attack : Attack):
+#TODO: split knockback into its own component
+func damage(attack : Attack,  killer : Node):
 	if invuln: return
 	
 	took_damage.emit()
@@ -29,22 +28,26 @@ func damage(attack : Attack):
 	health = clampi(health - attack.damage, 0, stats.max_health)
 	if health == 0: die()
 	
-	var killer_direction := Vector2.ONE
-	if attack.killer:
-		killer_direction = attack.killer.global_position.direction_to(body.global_position).normalized()
+	var knockback_direction := Vector2(-body.velocity.normalized().x, -1)
+	if killer is CharacterBody2D and killer.velocity.is_zero_approx(): knockback_direction = killer.velocity.normalized()
 	
 	if state_machine: state_machine.state_change('stun',
 	{
 		'stun_time': attack.stun_time,
-		'knockback': attack.knockback_direction * Vector2(-killer_direction.x, killer_direction.y),
+		'knockback': Vector2(knockback_direction.x, -abs(knockback_direction.y)) * attack.knockback_force,
 	})
 	
-	invuln = true
-	invuln_timer.start()
+	if stats.invuln_time>0:
+		invuln = true
+		invuln_timer.wait_time = stats.invuln_time
+		invuln_timer.start()
 
 func die():
-	death.emit()
+	(func():death.emit()).call_deferred()
 
 func _invuln_over():
 	invuln_timer.stop()
 	invuln = false
+
+func reset_health():
+	health = stats.max_health

@@ -11,12 +11,14 @@ func _ready() -> void:
 	
 	stun_timer.timeout.connect(_stun_finished)
 
+#TODO: reslove why stun time is sometimes 0.0 which causes a non-break error
 func enter(msg:={}):
 	animation.play('stun')
 	if msg.has('stun_time'):
-		stun_timer.wait_time = msg['stun_time']
+		#print(msg['stun_time'])
+		if msg['stun_time']>0.0:
+			stun_timer.wait_time = msg['stun_time']
 	if msg.has('knockback'):
-		#todo fix knockback logic
 		body.velocity = msg['knockback']
 	stun_timer.start()
 

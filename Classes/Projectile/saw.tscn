@@ -1,29 +1,29 @@
-[gd_scene load_steps=29 format=3 uid="uid://dklrwxtbrjp2y"]
+[gd_scene load_steps=26 format=3 uid="uid://7mox680ywi4x"]
 
-[ext_resource type="Script" uid="uid://b31jhjwl2t1hs" path="res://Classes/Projectile/base_projectile.gd" id="1_gr1k4"]
-[ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="2_en3vu"]
-[ext_resource type="Script" uid="uid://olgtjjk1ry4u" path="res://Classes/proj_stat_sheet.gd" id="2_fgy4q"]
-[ext_resource type="Texture2D" uid="uid://csc4lbkl6ail8" path="res://Assets/sprites/character_sheets.png" id="3_celr6"]
-[ext_resource type="Script" uid="uid://xguj3aga2d5m" path="res://Classes/Components/health_component.gd" id="4_vis68"]
-[ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="5_fgy4q"]
-[ext_resource type="Script" uid="uid://disgmj8sw5l0w" path="res://Classes/Components/interact_componet.gd" id="6_2ynas"]
-[ext_resource type="Script" uid="uid://bmmnvlqmtdoq6" path="res://Classes/State/state_machine.gd" id="6_celr6"]
-[ext_resource type="Script" uid="uid://bye0snk55abo6" path="res://Classes/Components/hurtbox_component.gd" id="6_hrerd"]
-[ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="7_8edil"]
-[ext_resource type="Script" uid="uid://8c23l3np7d80" path="res://Classes/State/projectile_move.gd" id="7_celr6"]
-[ext_resource type="Script" uid="uid://dktfc6cudjw6g" path="res://Classes/State/proj_idle.gd" id="8_vis68"]
+[ext_resource type="Script" uid="uid://b31jhjwl2t1hs" path="res://Classes/Projectile/base_projectile.gd" id="1_my8do"]
+[ext_resource type="Script" uid="uid://olgtjjk1ry4u" path="res://Classes/proj_stat_sheet.gd" id="2_yi1jc"]
+[ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="3_etinf"]
+[ext_resource type="Texture2D" uid="uid://coh4f1ewimmmg" path="res://Assets/sprites/dungeon_tileset.png" id="4_my8do"]
+[ext_resource type="Script" uid="uid://xguj3aga2d5m" path="res://Classes/Components/health_component.gd" id="5_o6ktt"]
+[ext_resource type="Script" uid="uid://disgmj8sw5l0w" path="res://Classes/Components/interact_componet.gd" id="6_jgwcv"]
+[ext_resource type="Script" uid="uid://bye0snk55abo6" path="res://Classes/Components/hurtbox_component.gd" id="7_8uf1i"]
+[ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="8_457g8"]
+[ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="9_4uhu4"]
+[ext_resource type="Script" uid="uid://bmmnvlqmtdoq6" path="res://Classes/State/state_machine.gd" id="10_5sapc"]
+[ext_resource type="Script" uid="uid://8c23l3np7d80" path="res://Classes/State/projectile_move.gd" id="11_fryqr"]
+[ext_resource type="Script" uid="uid://dktfc6cudjw6g" path="res://Classes/State/proj_idle.gd" id="12_45mvw"]
 
 [sub_resource type="Resource" id="Resource_8edil"]
-script = ExtResource("2_fgy4q")
-lifetime = 5.0
+script = ExtResource("2_yi1jc")
+lifetime = 3.0
 metadata/_custom_type_script = "uid://olgtjjk1ry4u"
 
 [sub_resource type="Resource" id="Resource_g8oy1"]
-script = ExtResource("2_en3vu")
+script = ExtResource("3_etinf")
 max_health = 1
-max_speed = 300.0
+max_speed = 200.0
 acceleration = 50.0
-friction = 50.0
+friction = 100.0
 jump_height = 0.0
 invuln_time = 0.0
 metadata/_custom_type_script = "uid://bgvbi4djtrhg2"
@@ -31,36 +31,15 @@ metadata/_custom_type_script = "uid://bgvbi4djtrhg2"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jx6rg"]
 size = Vector2(4, 4)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vpggq"]
-atlas = ExtResource("3_celr6")
-region = Rect2(16, 176, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1edn8"]
-atlas = ExtResource("3_celr6")
-region = Rect2(32, 176, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vsjsl"]
-atlas = ExtResource("3_celr6")
-region = Rect2(48, 176, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jx6rg"]
-atlas = ExtResource("3_celr6")
-region = Rect2(64, 176, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_my8do"]
+atlas = ExtResource("4_my8do")
+region = Rect2(160, 36, 16, 9)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g8oy1"]
 animations = [{
 "frames": [{
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_vpggq")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_1edn8")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_vsjsl")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_jx6rg")
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_my8do")
 }],
 "loop": true,
 "name": &"idle",
@@ -198,25 +177,25 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f7bvo"]
-size = Vector2(5, 5)
+size = Vector2(8, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ynas"]
-size = Vector2(4, 4)
+size = Vector2(8, 8)
 
 [sub_resource type="Resource" id="Resource_hrerd"]
-script = ExtResource("7_8edil")
+script = ExtResource("9_4uhu4")
 damage = 1.0
-knockback_force = 1
+knockback_force = 100
 stun_time = 1.0
 metadata/_custom_type_script = "uid://c5vkfnu5l6jx7"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsjsl"]
-size = Vector2(4, 4)
+size = Vector2(8, 8)
 
-[node name="base_projectile" type="CharacterBody2D" groups=["Player Projectile"]]
+[node name="saw" type="CharacterBody2D" groups=["Enemy Projectile"]]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_gr1k4")
+script = ExtResource("1_my8do")
 proj_stats = SubResource("Resource_8edil")
 stats = SubResource("Resource_g8oy1")
 metadata/_custom_type_script = "uid://b31jhjwl2t1hs"
@@ -226,6 +205,7 @@ visible = false
 shape = SubResource("RectangleShape2D_jx6rg")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 0.5)
 sprite_frames = SubResource("SpriteFrames_g8oy1")
 animation = &"idle"
 autoplay = "idle"
@@ -240,14 +220,14 @@ libraries = {
 }
 
 [node name="health_component" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
-script = ExtResource("4_vis68")
+script = ExtResource("5_o6ktt")
 state_machine = NodePath("../state_machine")
 metadata/_custom_type_script = "uid://xguj3aga2d5m"
 
 [node name="die_on_wall" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("6_2ynas")
+script = ExtResource("6_jgwcv")
 metadata/_custom_type_script = "uid://disgmj8sw5l0w"
 
 [node name="collision" type="CollisionShape2D" parent="die_on_wall"]
@@ -255,18 +235,19 @@ shape = SubResource("RectangleShape2D_f7bvo")
 debug_color = Color(0.945098, 1, 0, 0.419608)
 
 [node name="hurtbox_component" type="Area2D" parent="."]
-script = ExtResource("6_hrerd")
+visible = false
+script = ExtResource("7_8uf1i")
 metadata/_custom_type_script = "uid://bye0snk55abo6"
 
 [node name="collision" type="CollisionShape2D" parent="hurtbox_component"]
 shape = SubResource("RectangleShape2D_2ynas")
 debug_color = Color(0, 1, 0, 0.419608)
 
-[node name="hitbox_component" type="Area2D" parent="." node_paths=PackedStringArray("killer")]
-script = ExtResource("5_fgy4q")
+[node name="hitbox_component" type="Area2D" parent="." node_paths=PackedStringArray("killer") groups=["Enemy Projectile"]]
+visible = false
+script = ExtResource("8_457g8")
 attack = SubResource("Resource_hrerd")
 killer = NodePath("..")
-target_groups = Array[String](["Enemy"])
 metadata/_custom_type_script = "uid://ckmbl6r4aef7j"
 
 [node name="collision" type="CollisionShape2D" parent="hitbox_component"]
@@ -274,16 +255,16 @@ shape = SubResource("RectangleShape2D_vsjsl")
 debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("6_celr6")
+script = ExtResource("10_5sapc")
 initial_state = NodePath("move")
 metadata/_custom_type_script = "uid://bmmnvlqmtdoq6"
 
 [node name="move" type="Node" parent="state_machine"]
-script = ExtResource("7_celr6")
+script = ExtResource("11_fryqr")
 metadata/_custom_type_script = "uid://fwd0snk35wo3"
 
 [node name="idle" type="Node" parent="state_machine"]
-script = ExtResource("8_vis68")
+script = ExtResource("12_45mvw")
 metadata/_custom_type_script = "uid://fwd0snk35wo3"
 
 [connection signal="lifetime_over" from="." to="AnimationPlayer" method="play" binds= ["die"]]

@@ -1,0 +1,264 @@
+[gd_scene load_steps=32 format=3 uid="uid://cb6ag2rv06vil"]
+
+[ext_resource type="Script" uid="uid://d2t1mpxw7sxop" path="res://Classes/Enemies/base_enemy.gd" id="1_li0ys"]
+[ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="2_3hbu7"]
+[ext_resource type="Texture2D" uid="uid://csc4lbkl6ail8" path="res://Assets/sprites/character_sheets.png" id="3_3hglb"]
+[ext_resource type="Script" uid="uid://bye0snk55abo6" path="res://Classes/Components/hurtbox_component.gd" id="4_cniqn"]
+[ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="5_kp8yx"]
+[ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="6_loa7u"]
+[ext_resource type="Script" uid="uid://xguj3aga2d5m" path="res://Classes/Components/health_component.gd" id="7_bg7fy"]
+[ext_resource type="Script" uid="uid://bmmnvlqmtdoq6" path="res://Classes/State/state_machine.gd" id="8_2tvcf"]
+[ext_resource type="Script" uid="uid://orhfywad7py6" path="res://Classes/State/stun.gd" id="9_ftmgv"]
+[ext_resource type="Script" uid="uid://bu4ewuyh1nqb2" path="res://Classes/State/idle.gd" id="10_njucv"]
+[ext_resource type="Script" uid="uid://c7yd6hhb8o5ts" path="res://Classes/Enemies/Crawler/crawler_move.gd" id="12_8yfrw"]
+[ext_resource type="Script" uid="uid://dtxjwasofqgrm" path="res://Classes/State/air.gd" id="12_wgg1v"]
+[ext_resource type="PackedScene" uid="uid://eu6beov2p7ij" path="res://debug_label.tscn" id="13_wn6vu"]
+[ext_resource type="FontFile" uid="uid://d1uv461hk0yrw" path="res://Assets/fonts/camilla's-pixel.ttf" id="14_85gsv"]
+[ext_resource type="Script" uid="uid://disgmj8sw5l0w" path="res://Classes/Components/interact_componet.gd" id="15_ukcpo"]
+
+[sub_resource type="Resource" id="Resource_8yfrw"]
+script = ExtResource("2_3hbu7")
+max_health = 1
+max_speed = 25.0
+acceleration = 100.0
+friction = 50.0
+jump_height = 100.0
+invuln_time = 1.0
+metadata/_custom_type_script = "uid://bgvbi4djtrhg2"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f50g0"]
+size = Vector2(10, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yfrw"]
+atlas = ExtResource("3_3hglb")
+region = Rect2(256, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukcpo"]
+atlas = ExtResource("3_3hglb")
+region = Rect2(256, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2yxe"]
+atlas = ExtResource("3_3hglb")
+region = Rect2(256, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o20lt"]
+atlas = ExtResource("3_3hglb")
+region = Rect2(256, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0eewf"]
+atlas = ExtResource("3_3hglb")
+region = Rect2(256, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vrae4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8yfrw")
+}],
+"loop": true,
+"name": &"air",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukcpo")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2yxe")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o20lt")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0eewf")
+}],
+"loop": true,
+"name": &"stun",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ory6w"]
+size = Vector2(8, 5)
+
+[sub_resource type="Resource" id="Resource_mmgy1"]
+script = ExtResource("6_loa7u")
+damage = 1.0
+knockback_force = 150
+stun_time = 1.0
+metadata/_custom_type_script = "uid://c5vkfnu5l6jx7"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_alf3h"]
+size = Vector2(8, 5)
+
+[sub_resource type="Animation" id="Animation_3uwog"]
+resource_name = "die"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lpnh3"]
+_data = {
+&"die": SubResource("Animation_3uwog")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8yfrw"]
+size = Vector2(2, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ukcpo"]
+size = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nyyi5"]
+font = ExtResource("14_85gsv")
+
+[node name="crawler" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 34
+collision_mask = 2
+script = ExtResource("1_li0ys")
+stats = SubResource("Resource_8yfrw")
+metadata/_custom_type_script = "uid://c2djvxdicte83"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_f50g0")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_vrae4")
+animation = &"air"
+autoplay = "move"
+
+[node name="hurtbox_component" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("4_cniqn")
+
+[node name="collision" type="CollisionShape2D" parent="hurtbox_component"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_ory6w")
+debug_color = Color(0, 1, 0, 0.419608)
+
+[node name="hitbox_component" type="Area2D" parent="." node_paths=PackedStringArray("killer")]
+script = ExtResource("5_kp8yx")
+attack = SubResource("Resource_mmgy1")
+killer = NodePath("..")
+target_groups = Array[String](["Player", "Player Projectile"])
+metadata/_custom_type_script = "uid://ckmbl6r4aef7j"
+
+[node name="collision" type="CollisionShape2D" parent="hitbox_component"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_alf3h")
+disabled = true
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="health_component" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
+script = ExtResource("7_bg7fy")
+state_machine = NodePath("../state_machine")
+metadata/_custom_type_script = "uid://xguj3aga2d5m"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="health_component"]
+libraries = {
+&"": SubResource("AnimationLibrary_lpnh3")
+}
+
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("8_2tvcf")
+initial_state = NodePath("move")
+metadata/_custom_type_script = "uid://bmmnvlqmtdoq6"
+
+[node name="stun" type="Node" parent="state_machine"]
+script = ExtResource("9_ftmgv")
+metadata/_custom_type_script = "uid://orhfywad7py6"
+
+[node name="idle" type="Node" parent="state_machine"]
+script = ExtResource("10_njucv")
+metadata/_custom_type_script = "uid://fwd0snk35wo3"
+
+[node name="air" type="Node" parent="state_machine"]
+script = ExtResource("12_wgg1v")
+metadata/_custom_type_script = "uid://dtxjwasofqgrm"
+
+[node name="move" type="Node" parent="state_machine"]
+script = ExtResource("12_8yfrw")
+metadata/_custom_type_script = "uid://fwd0snk35wo3"
+
+[node name="ground" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("15_ukcpo")
+metadata/_custom_type_script = "uid://disgmj8sw5l0w"
+
+[node name="collision" type="CollisionShape2D" parent="ground"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_8yfrw")
+debug_color = Color(0, 0.6, 0, 0.419608)
+
+[node name="right_wall" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("15_ukcpo")
+metadata/_custom_type_script = "uid://disgmj8sw5l0w"
+
+[node name="collision" type="CollisionShape2D" parent="right_wall"]
+position = Vector2(5, -2)
+shape = SubResource("RectangleShape2D_ukcpo")
+debug_color = Color(0, 0.6, 0, 0.419608)
+
+[node name="left_wall" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("15_ukcpo")
+metadata/_custom_type_script = "uid://disgmj8sw5l0w"
+
+[node name="collision" type="CollisionShape2D" parent="left_wall"]
+position = Vector2(-5, -2)
+shape = SubResource("RectangleShape2D_ukcpo")
+debug_color = Color(0, 0.6, 0, 0.419608)
+
+[node name="debug" parent="." instance=ExtResource("13_wn6vu")]
+visible = false
+offset_left = -163.0
+offset_top = 1.0
+offset_right = 925.0
+offset_bottom = 17.0
+scale = Vector2(0.3, 0.3)
+label_settings = SubResource("LabelSettings_nyyi5")
+
+[connection signal="hurtbox_hit" from="hurtbox_component" to="health_component" method="damage"]
+[connection signal="death" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["die"]]
+[connection signal="body_enter" from="ground" to="state_machine" method="state_change" binds= ["move", {}]]
+[connection signal="body_entered" from="ground" to="ground" method="body_entered"]
+[connection signal="body_enter" from="right_wall" to="state_machine" method="state_change" binds= ["move", {
+"move_direction": Vector2(-1, 0)
+}]]
+[connection signal="body_entered" from="right_wall" to="right_wall" method="body_entered"]
+[connection signal="body_enter" from="left_wall" to="state_machine" method="state_change" binds= ["move", {
+"move_direction": Vector2(1, 0)
+}]]
+[connection signal="body_entered" from="left_wall" to="left_wall" method="body_entered"]

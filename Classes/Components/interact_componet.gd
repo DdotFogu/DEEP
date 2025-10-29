@@ -23,11 +23,11 @@ func _input(event: InputEvent) -> void:
 
 func body_entered(_body: Node2D):
 	toggle_cursor(true)
-	body_enter.emit()
+	(func(): body_enter.emit()).call_deferred()
 
 func body_exited(_body: Node2D):
 	toggle_cursor(false)
-	body_exit.emit()
+	(func(): body_exit.emit()).call_deferred()
 
 func toggle_cursor(enable := false):
 	if !cursor: return
