@@ -3,7 +3,7 @@ extends Node2D
 class_name base_level 
 
 @export var possible_enemies := {
-	'frog': preload("res://Classes/Enemies/Frog/frog.tscn"),
+	#'frog': preload("res://Classes/Enemies/Frog/frog.tscn"),
 	'crawler': preload("res://Classes/Enemies/Crawler/crawler.tscn"),
 	
 }
@@ -14,6 +14,8 @@ class_name base_level
 var spawn_groups:={}
 
 func _ready() -> void: 
+	enemy_layer.visible = false
+	
 	for coords in enemy_layer.get_used_cells():
 		var tile_data = enemy_layer.get_cell_tile_data(coords).get_custom_data("SpawnType")
 		if tile_data == null: continue

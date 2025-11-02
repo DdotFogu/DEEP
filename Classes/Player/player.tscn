@@ -15,16 +15,14 @@
 [ext_resource type="PackedScene" uid="uid://dklrwxtbrjp2y" path="res://Classes/Projectile/base_projectile.tscn" id="8_8s7r7"]
 [ext_resource type="Script" uid="uid://dmh4sta05yra3" path="res://Classes/Player/player_air.gd" id="11_my3k2"]
 [ext_resource type="Script" uid="uid://orhfywad7py6" path="res://Classes/State/stun.gd" id="13_e7f8n"]
-[ext_resource type="PackedScene" uid="uid://eu6beov2p7ij" path="res://debug_label.tscn" id="14_8s7r7"]
-[ext_resource type="FontFile" uid="uid://d1uv461hk0yrw" path="res://Assets/fonts/camilla's-pixel.ttf" id="15_my3k2"]
 [ext_resource type="Script" uid="uid://bddrkejy8namb" path="res://Classes/State/dead.gd" id="16_j8lpi"]
 
 [sub_resource type="Resource" id="Resource_3uhgh"]
 script = ExtResource("2_cf8p7")
-max_health = 10
-max_speed = 100.0
-acceleration = 100.0
-friction = 30.0
+max_health = 4
+max_speed = 75.0
+acceleration = 75.0
+friction = 10.0
 jump_height = 225.0
 invuln_time = 1.3
 metadata/_custom_type_script = "uid://bgvbi4djtrhg2"
@@ -35,6 +33,18 @@ size = Vector2(4, 6)
 [sub_resource type="AtlasTexture" id="AtlasTexture_jy48h"]
 atlas = ExtResource("4_88bh2")
 region = Rect2(16, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4igrx"]
+atlas = ExtResource("4_88bh2")
+region = Rect2(16, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dwkm"]
+atlas = ExtResource("4_88bh2")
+region = Rect2(32, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_baqtb"]
+atlas = ExtResource("4_88bh2")
+region = Rect2(48, 80, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wscsg"]
 atlas = ExtResource("4_88bh2")
@@ -88,6 +98,20 @@ animations = [{
 }],
 "loop": false,
 "name": &"air",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4igrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0dwkm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_baqtb")
+}],
+"loop": false,
+"name": &"dead",
 "speed": 5.0
 }, {
 "frames": [{
@@ -258,10 +282,10 @@ tracks/0/path = NodePath("../sprite:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.6, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true, false, true, false, true, false, true]
+"values": [true, false, true, false, true, false, true, false, true, false, true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -288,7 +312,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:can_fire")
+tracks/0/path = NodePath(".:enabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -300,18 +324,17 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_my3k2"]
 resource_name = "fire"
-length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:can_fire")
+tracks/0/path = NodePath(".:enabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5shcc"]
@@ -320,11 +343,8 @@ _data = {
 &"fire": SubResource("Animation_my3k2")
 }
 
-[sub_resource type="LabelSettings" id="LabelSettings_5shcc"]
-font = ExtResource("15_my3k2")
-
 [node name="player" type="CharacterBody2D" groups=["Player"]]
-collision_mask = 2
+collision_mask = 66
 script = ExtResource("1_8jt68")
 stats = SubResource("Resource_3uhgh")
 
@@ -382,6 +402,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_5shcc")
 }
 
+[node name="reload_timer" type="Timer" parent="projectile_component"]
+wait_time = 0.5
+autostart = true
+
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_cf8p7")
 initial_state = NodePath("idle")
@@ -410,15 +434,6 @@ metadata/_custom_type_script = "uid://fwd0snk35wo3"
 [node name="dead" type="Node" parent="state_machine"]
 script = ExtResource("16_j8lpi")
 metadata/_custom_type_script = "uid://fwd0snk35wo3"
-
-[node name="debug" parent="." instance=ExtResource("14_8s7r7")]
-visible = false
-offset_left = -163.0
-offset_top = 1.0
-offset_right = 925.0
-offset_bottom = 17.0
-scale = Vector2(0.3, 0.3)
-label_settings = SubResource("LabelSettings_5shcc")
 
 [connection signal="hurtbox_hit" from="hurtbox_component" to="health_component" method="damage"]
 [connection signal="death" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["die"]]

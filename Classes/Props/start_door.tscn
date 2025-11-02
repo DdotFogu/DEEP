@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bvmpb2w3hvuw4"]
+[gd_scene load_steps=23 format=3 uid="uid://bvmpb2w3hvuw4"]
 
 [ext_resource type="Script" uid="uid://disgmj8sw5l0w" path="res://Classes/Components/interact_componet.gd" id="1_lyn4o"]
 [ext_resource type="Script" uid="uid://dm42hjdknv4mo" path="res://Classes/Components/scene_transitor.gd" id="2_aqd0g"]
@@ -68,6 +68,10 @@ region = Rect2(16, 0, 16, 16)
 atlas = ExtResource("3_aqd0g")
 region = Rect2(0, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwr46"]
+atlas = ExtResource("3_aqd0g")
+region = Rect2(0, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_86xni"]
 atlas = ExtResource("3_aqd0g")
 region = Rect2(0, 0, 16, 16)
@@ -84,7 +88,7 @@ region = Rect2(32, 0, 16, 16)
 atlas = ExtResource("3_aqd0g")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_vqw7c"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_pqll7"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -101,6 +105,14 @@ animations = [{
 }],
 "loop": false,
 "name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwr46")
+}],
+"loop": true,
+"name": &"inital",
 "speed": 5.0
 }, {
 "frames": [{
@@ -125,6 +137,7 @@ animations = [{
 
 [node name="interact_component" type="Area2D" parent="."]
 script = ExtResource("1_lyn4o")
+los = false
 
 [node name="interact_area" type="CollisionShape2D" parent="interact_component"]
 z_index = 1
@@ -145,12 +158,10 @@ scene = ExtResource("5_6ryhw")
 metadata/_custom_type_script = "uid://bbhlg6cchcm5m"
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_vqw7c")
-animation = &"open"
-autoplay = "close"
+sprite_frames = SubResource("SpriteFrames_pqll7")
+animation = &"close"
+autoplay = "inital"
 
-[connection signal="body_enter" from="interact_component" to="sprite" method="play" binds= ["open"]]
-[connection signal="body_entered" from="interact_component" to="interact_component" method="body_entered"]
-[connection signal="body_exit" from="interact_component" to="sprite" method="play" binds= ["close"]]
-[connection signal="body_exited" from="interact_component" to="interact_component" method="body_exited"]
 [connection signal="interact" from="interact_component" to="scene_transitor" method="trans_change_scene"]
+[connection signal="target_enetered" from="interact_component" to="sprite" method="play" binds= ["open"]]
+[connection signal="target_exited" from="interact_component" to="sprite" method="play" binds= ["close"]]

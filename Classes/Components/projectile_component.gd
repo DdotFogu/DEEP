@@ -15,6 +15,7 @@ var proj_stack : Array = []
 var ammo : int:
 	set(new_amount):
 		ammo = new_amount
+		ammo = clampi(new_amount, 0, max_ammo)
 		current_ammo_set()
 
 signal projectile_fired
@@ -43,7 +44,7 @@ func spawn_projectile(move_direction : Vector2, req_ammo:bool=true):
 	
 	proj.reset_proj()
 	
-	if req_ammo: ammo = clampi(ammo - 1, 0, max_ammo)
+	if req_ammo: ammo -= 1
 
 func add_proj_to_stack(proj_to_add):
 	if proj_stack.has(proj_to_add): return

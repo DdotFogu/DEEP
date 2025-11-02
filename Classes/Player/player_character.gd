@@ -8,6 +8,7 @@ func input_direction() -> int:
 	return direction
 
 func _process(_delta: float) -> void:
+	if signal_bus.player_dead: return
 	if !animation: return
 	
 	if Input.is_action_pressed('move_right'):

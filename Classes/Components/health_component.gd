@@ -25,7 +25,7 @@ func damage(attack : Attack,  killer : Node):
 	
 	took_damage.emit()
 	
-	health = clampi(health - attack.damage, 0, stats.max_health)
+	health = clamp(health - attack.damage, 0, stats.max_health)
 	if health == 0: die()
 	
 	var knockback_direction := Vector2(-body.velocity.normalized().x, -1)

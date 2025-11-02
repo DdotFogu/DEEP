@@ -1,6 +1,8 @@
 extends state
 class_name air
 
+@export var after_state : String = 'idle'
+
 func enter(_msg:={}):
 	animation.play('air')
 
@@ -9,4 +11,4 @@ func physics_update(_delta : float):
 	body.move_and_slide()
 	
 	if body.is_on_floor():
-		Transitioned.emit(self, 'idle')
+		Transitioned.emit(self, after_state)

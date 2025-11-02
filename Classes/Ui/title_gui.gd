@@ -1,7 +1,7 @@
-extends Control
+extends Label
 
-@onready var title_label: Label = $title_label
-@onready var inital_text = title_label.text
+func _init() -> void:
+	signal_bus.floor_level_changed.connect(update_floor_title)
 
-func update_floor_title(level:int=0):
-	title_label.text = inital_text + str(level)
+func update_floor_title(level:int=0, flavor:String='dungeon-'):
+	text = flavor + str(level)

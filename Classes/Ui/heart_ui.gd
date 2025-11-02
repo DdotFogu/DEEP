@@ -1,25 +1,18 @@
-extends HBoxContainer
+extends Control
 
-const heart_scene := preload("res://Classes/Ui/heart.tscn")
+@export var hp_progress : TextureProgressBar
+@onready var counter: Label = $counter
 
 func _init() -> void:
-	signal_bus.player_max_health_changed.connect(set_max_hearts)
-	signal_bus.player_health_changed.connect(update_hearts)
+	signal_bus.player_health_changed.connect(update_progress)
+	signal_bus.player_max_health_changed.connect(update_max)
 
-func set_max_hearts(max_amount: int):
-	for i in range(max_amount):
-		var heart = heart_scene.instantiate()
-		add_child(heart)
+func update_max(max_amount:int):
+	if !hp_progress: return
+	hp_progress.max_value = max_amount
+	counter.text = "{value}/{max}".format({'value': int(hp_progress.value), 'max': int(hp_progress.max_value)})
 
-func update_hearts(current_health : int):
-	var hearts = get_children()
-	
-	for i in range(current_health):
-		if i+1 > hearts.size(): return
-		
-		var heart_animation = hearts[i].get_node('animation')
-		heart_animation.play('idle')
-	
-	for i in range(current_health, hearts.size()):
-		var heart_animation = hearts[i].get_node('animation')
-		heart_animation.play('empty')
+func update_progress(current_ammo:int):
+	if !hp_progress: return
+	hp_progress.value = current_ammo
+	counter.text = "{value}/{max}".format({'value': int(hp_progress.value), 'max': int(hp_progress.max_value)})

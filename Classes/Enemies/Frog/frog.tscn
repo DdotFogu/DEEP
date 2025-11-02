@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://liou7gujwhux"]
+[gd_scene load_steps=26 format=3 uid="uid://liou7gujwhux"]
 
 [ext_resource type="Script" uid="uid://d2t1mpxw7sxop" path="res://Classes/Enemies/base_enemy.gd" id="1_alf3h"]
 [ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="2_cs3f2"]
@@ -11,18 +11,12 @@
 [ext_resource type="Script" uid="uid://68ktwo883762" path="res://Classes/Enemies/Frog/frog_jump.gd" id="9_6cp15"]
 [ext_resource type="Script" uid="uid://bu4ewuyh1nqb2" path="res://Classes/State/idle.gd" id="9_alf3h"]
 [ext_resource type="Script" uid="uid://dtxjwasofqgrm" path="res://Classes/State/air.gd" id="11_alf3h"]
-[ext_resource type="PackedScene" uid="uid://eu6beov2p7ij" path="res://debug_label.tscn" id="11_taygp"]
-[ext_resource type="FontFile" uid="uid://d1uv461hk0yrw" path="res://Assets/fonts/camilla's-pixel.ttf" id="12_e7rtc"]
 [ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="12_jm28o"]
 
 [sub_resource type="Resource" id="Resource_jq2lv"]
 script = ExtResource("2_cs3f2")
-max_health = 1
-max_speed = 100.0
-acceleration = 100.0
 friction = 25.0
 jump_height = 200.0
-invuln_time = 1.0
 metadata/_custom_type_script = "uid://bgvbi4djtrhg2"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f50g0"]
@@ -126,9 +120,6 @@ _data = {
 &"die": SubResource("Animation_3uwog")
 }
 
-[sub_resource type="LabelSettings" id="LabelSettings_nyyi5"]
-font = ExtResource("12_e7rtc")
-
 [node name="frog" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 32
 collision_mask = 2
@@ -200,15 +191,6 @@ metadata/_custom_type_script = "uid://fwd0snk35wo3"
 [node name="air" type="Node" parent="state_machine"]
 script = ExtResource("11_alf3h")
 metadata/_custom_type_script = "uid://dtxjwasofqgrm"
-
-[node name="debug" parent="." instance=ExtResource("11_taygp")]
-visible = false
-offset_left = -163.0
-offset_top = 1.0
-offset_right = 925.0
-offset_bottom = 17.0
-scale = Vector2(0.3, 0.3)
-label_settings = SubResource("LabelSettings_nyyi5")
 
 [connection signal="hurtbox_hit" from="hurtbox_component" to="health_component" method="damage"]
 [connection signal="death" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["die"]]

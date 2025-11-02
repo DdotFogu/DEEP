@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://csc4lbkl6ail8" path="res://Assets/sprites/character_sheets.png" id="3_celr6"]
 [ext_resource type="Script" uid="uid://xguj3aga2d5m" path="res://Classes/Components/health_component.gd" id="4_vis68"]
 [ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="5_fgy4q"]
-[ext_resource type="Script" uid="uid://disgmj8sw5l0w" path="res://Classes/Components/interact_componet.gd" id="6_2ynas"]
+[ext_resource type="Script" uid="uid://bagit57t2ya26" path="res://Classes/Components/target_detection_component.gd" id="6_2ynas"]
 [ext_resource type="Script" uid="uid://bmmnvlqmtdoq6" path="res://Classes/State/state_machine.gd" id="6_celr6"]
 [ext_resource type="Script" uid="uid://bye0snk55abo6" path="res://Classes/Components/hurtbox_component.gd" id="6_hrerd"]
 [ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="7_8edil"]
@@ -20,7 +20,6 @@ metadata/_custom_type_script = "uid://olgtjjk1ry4u"
 
 [sub_resource type="Resource" id="Resource_g8oy1"]
 script = ExtResource("2_en3vu")
-max_health = 1
 max_speed = 300.0
 acceleration = 50.0
 friction = 50.0
@@ -198,7 +197,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f7bvo"]
-size = Vector2(5, 5)
+size = Vector2(6, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ynas"]
 size = Vector2(4, 4)
@@ -206,7 +205,6 @@ size = Vector2(4, 4)
 [sub_resource type="Resource" id="Resource_hrerd"]
 script = ExtResource("7_8edil")
 damage = 1.0
-knockback_force = 1
 stun_time = 1.0
 metadata/_custom_type_script = "uid://c5vkfnu5l6jx7"
 
@@ -234,21 +232,23 @@ frame_progress = 0.314657
 [node name="visiblity" type="VisibleOnScreenEnabler2D" parent="."]
 scale = Vector2(0.2, 0.2)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_vis68")
-}
-
 [node name="health_component" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
 script = ExtResource("4_vis68")
 state_machine = NodePath("../state_machine")
 metadata/_custom_type_script = "uid://xguj3aga2d5m"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="health_component"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_vis68")
+}
+
 [node name="die_on_wall" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("6_2ynas")
-metadata/_custom_type_script = "uid://disgmj8sw5l0w"
+los = false
+metadata/_custom_type_script = "uid://bagit57t2ya26"
 
 [node name="collision" type="CollisionShape2D" parent="die_on_wall"]
 shape = SubResource("RectangleShape2D_f7bvo")
@@ -286,10 +286,8 @@ metadata/_custom_type_script = "uid://fwd0snk35wo3"
 script = ExtResource("8_vis68")
 metadata/_custom_type_script = "uid://fwd0snk35wo3"
 
-[connection signal="lifetime_over" from="." to="AnimationPlayer" method="play" binds= ["die"]]
-[connection signal="proj_reset" from="." to="AnimationPlayer" method="play" binds= ["reset"]]
-[connection signal="death" from="health_component" to="AnimationPlayer" method="play" binds= ["die"]]
-[connection signal="body_enter" from="die_on_wall" to="AnimationPlayer" method="play" binds= ["die"]]
-[connection signal="body_entered" from="die_on_wall" to="die_on_wall" method="body_entered"]
-[connection signal="body_exited" from="die_on_wall" to="die_on_wall" method="body_exited"]
+[connection signal="lifetime_over" from="." to="health_component/AnimationPlayer" method="play" binds= ["die"]]
+[connection signal="proj_reset" from="." to="health_component/AnimationPlayer" method="play" binds= ["reset"]]
+[connection signal="death" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["die"]]
+[connection signal="target_enetered" from="die_on_wall" to="health_component/AnimationPlayer" method="play" binds= ["die"]]
 [connection signal="hurtbox_hit" from="hurtbox_component" to="health_component" method="damage"]

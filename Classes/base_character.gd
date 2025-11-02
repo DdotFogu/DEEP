@@ -4,9 +4,6 @@ class_name base_character
 @export var stats : StatSheet
 @onready var animation : AnimatedSprite2D = get_node("sprite")
 
-func _ready() -> void:
-	if !debugger.character_array.has(self): debugger.character_array.append(self)
-
 func face_direction():
 	if !animation: return
 	

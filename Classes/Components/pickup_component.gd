@@ -1,14 +1,13 @@
-@icon("res://Assets/icons/icon_event.png")
-extends Area2D
+extends interact_component
 class_name pickup_component
 
-signal pickup
-
-@export var active := true
+@export var on_enter : bool = false
 
 func _ready() -> void:
-	body_entered.connect(item_pickup)
+	if on_enter:
+		target_enetered.connect(item_pickup)
+	else:
+		interact.connect(item_pickup)
 
-func item_pickup(_body: Node2D):
-	if !active: return
-	pickup.emit()
+func item_pickup():
+	pass

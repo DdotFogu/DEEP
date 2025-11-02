@@ -15,9 +15,7 @@ func _ready() -> void:
 func enter(msg:={}):
 	animation.play('stun')
 	if msg.has('stun_time'):
-		#print(msg['stun_time'])
-		if msg['stun_time']>0.0:
-			stun_timer.wait_time = msg['stun_time']
+		stun_timer.wait_time = msg['stun_time']
 	if msg.has('knockback'):
 		body.velocity = msg['knockback']
 	stun_timer.start()

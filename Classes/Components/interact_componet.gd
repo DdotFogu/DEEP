@@ -1,34 +1,35 @@
-@icon("res://Assets/icons/icon_event.png")
-extends Area2D
+extends target_dection_component
 class_name interact_component
 
+@export_group('Component Settings')
 @export var enabled : bool = true
 
 var cursor : AnimatedSprite2D
 
 signal interact
-signal body_enter
-signal body_exit
+
+func _init() -> void:
+	super()
+	target_enetered.connect(toggle_cursor.bind(true))
+	target_exited.connect(toggle_cursor.bind(false))
 
 func _ready() -> void:
-	if!has_node('arrow'):return
-	cursor = get_node('arrow')
-
-func _input(event: InputEvent) -> void:
-	if !enabled: return
+	super()
 	
-	if event.is_action_pressed('interact'):
-		if get_overlapping_bodies().has(global.player):
-			interact.emit()
+	if has_node('arrow'): 
+		cursor = get_node('arrow')
+		cursor.visible = false
 
-func body_entered(_body: Node2D):
-	toggle_cursor(true)
-	(func(): body_enter.emit()).call_deferred()
-
-func body_exited(_body: Node2D):
-	toggle_cursor(false)
-	(func(): body_exit.emit()).call_deferred()
-
-func toggle_cursor(enable := false):
+func toggle_cursor(enable := true):
 	if !cursor: return
 	cursor.visible = enable
+
+func _input(event: InputEvent) -> void:
+	if !event.is_action_pressed("interact"): return
+	if !enabled: return
+	
+	var collider = get_overlapping_bodies()
+	if collider.is_empty(): return
+	
+	if has_los(collider[0]):
+		interact.emit()
