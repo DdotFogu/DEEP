@@ -2,6 +2,7 @@ extends state
 class_name dead
 
 func enter(_msg:={}):
+	Entered.emit()
 	animation.play('dead')
 
 func physics_update(_delta : float):

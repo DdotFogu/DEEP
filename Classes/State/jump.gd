@@ -2,6 +2,10 @@ extends state
 class_name jump
 
 func enter(_msg:={}):
+	if !body.is_on_floor():
+		Transitioned.emit(self, 'idle')
+		return
+	
 	animation.play('jump')
 	body.velocity.y -= stats.jump_height
 

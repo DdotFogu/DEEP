@@ -21,20 +21,34 @@ func _ready() -> void:
 
 #TODO: split knockback into its own component
 func damage(attack : Attack,  killer : Node):
-	if invuln: return
+	if invuln or attack.damage <= 0: return
 	
 	took_damage.emit()
 	
 	health = clamp(health - attack.damage, 0, stats.max_health)
 	if health == 0: die()
 	
-	var knockback_direction := Vector2(-body.velocity.normalized().x, -1)
-	if killer is CharacterBody2D and killer.velocity.is_zero_approx(): knockback_direction = killer.velocity.normalized()
+	var knockback_direction: Vector2
+	if killer is CharacterBody2D:
+		if killer.velocity.is_zero_approx():
+			knockback_direction = Vector2(-body.global_position.direction_to(killer.global_position).x, -1)
+		else:
+			knockback_direction = killer.velocity
+	else:
+		knockback_direction = Vector2(-body.velocity.x, -1)
+	
+	knockback_direction = knockback_direction.normalized()
+	
+	#decrease health/pierce if the killer is a projectile
+	if killer is base_projectile: 
+		var killer_health : health_component = killer.get_node('health_component')
+		if killer_health:
+			killer_health.damage(attack, body) 
 	
 	if state_machine: state_machine.state_change('stun',
 	{
 		'stun_time': attack.stun_time,
-		'knockback': Vector2(knockback_direction.x, -abs(knockback_direction.y)) * attack.knockback_force,
+		'knockback': Vector2(knockback_direction.x, -1) * attack.knockback_force,
 	})
 	
 	if stats.invuln_time>0:

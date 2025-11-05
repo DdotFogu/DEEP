@@ -1,4 +1,4 @@
-extends target_dection_component
+extends target_detection_component
 class_name interact_component
 
 @export_group('Component Settings')
@@ -10,7 +10,7 @@ signal interact
 
 func _init() -> void:
 	super()
-	target_enetered.connect(toggle_cursor.bind(true))
+	target_entered.connect(toggle_cursor.bind(true))
 	target_exited.connect(toggle_cursor.bind(false))
 
 func _ready() -> void:

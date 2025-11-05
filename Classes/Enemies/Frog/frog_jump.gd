@@ -1,34 +1,25 @@
 extends jump
 class_name frog_jump
 
-@export var launch_range := Vector2(50, 50)
-@export var jump_intesity := Vector2(1.0, 1.5)
-@export var wait_time := 1.0
-@export var jump_delay := 1.0
-var jump_timer : Timer
+var jump_dir : int
 
-func _ready() -> void: 
+func _ready() -> void:
 	super()
-	jump_timer = Timer.new()
-	jump_timer.wait_time = wait_time * randf()
-	jump_timer.autostart = true
-	jump_timer.timeout.connect(func():
-		if body.is_on_floor():
-			Transitioned.emit(machine.current_state, 'jump')
-			jump_timer.stop()
-			await get_tree().create_timer(jump_delay).timeout
-			jump_timer.wait_time = wait_time * randf_range(0.0, 2.0)
-			jump_timer.start()
-		)
-	add_child(jump_timer)
+	jump_dir = -1 if randf() < 0.5 else 1
 
-func enter(_msg:={}):
+func enter(_msg := {}):
+	super(_msg)
 	
-	animation.play('jump')
+	if jump_dir == -1: animation.flip_h = true 
+	else: animation.flip_h = false
 	
-	var jump_direction = body.global_position.direction_to(global.player.global_position).normalized()
-	var jump_offset := Vector2(randf_range(launch_range.x, launch_range.y),-stats.jump_height * randf_range(jump_intesity.x, jump_intesity.y))
-	var jump_velocity := Vector2(jump_offset.x * jump_direction.x, jump_offset.y)
-	
-	animation.flip_h = false if jump_direction.x > 0 else true
-	body.velocity = jump_velocity
+	body.velocity.x += stats.max_speed * jump_dir
+
+func physics_update(_delta : float):
+	super(_delta)
+	if body.is_on_wall(): 
+		body.velocity.x += stats.max_speed * -jump_dir # push away from wall
+		if jump_dir == -1: animation.flip_h = false 
+		else: animation.flip_h = true
+		
+		jump_dir = -jump_dir

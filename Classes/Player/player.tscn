@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://c8gyb4e3qyktp"]
+[gd_scene load_steps=46 format=3 uid="uid://c8gyb4e3qyktp"]
 
 [ext_resource type="Script" uid="uid://lswrihvyp3wb" path="res://Classes/Player/player_character.gd" id="1_8jt68"]
 [ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="2_cf8p7"]
@@ -6,13 +6,12 @@
 [ext_resource type="Script" uid="uid://bmmnvlqmtdoq6" path="res://Classes/State/state_machine.gd" id="4_cf8p7"]
 [ext_resource type="Script" uid="uid://d06dcrhk5vqou" path="res://Classes/Player/player_idle.gd" id="5_8jt68"]
 [ext_resource type="Script" uid="uid://dw4pjjpkmqfnb" path="res://Classes/Player/player_health.gd" id="5_my3k2"]
-[ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="5_rdxkg"]
 [ext_resource type="Script" uid="uid://bye0snk55abo6" path="res://Classes/Components/hurtbox_component.gd" id="5_u73eo"]
-[ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="6_j8lpi"]
 [ext_resource type="Script" uid="uid://bar1hy3jkmybr" path="res://Classes/Player/player_move.gd" id="6_nh3do"]
 [ext_resource type="Script" uid="uid://dx0r1wq1hrdrr" path="res://Classes/Player/player_projectile_componet.gd" id="7_e7f8n"]
 [ext_resource type="Script" uid="uid://c6dx7sqhg7rpf" path="res://Classes/Player/player_jump.gd" id="8_6w55k"]
 [ext_resource type="PackedScene" uid="uid://dklrwxtbrjp2y" path="res://Classes/Projectile/base_projectile.tscn" id="8_8s7r7"]
+[ext_resource type="Script" uid="uid://wy5pqqkxool0" path="res://Classes/Components/audio_component.gd" id="8_my3k2"]
 [ext_resource type="Script" uid="uid://dmh4sta05yra3" path="res://Classes/Player/player_air.gd" id="11_my3k2"]
 [ext_resource type="Script" uid="uid://orhfywad7py6" path="res://Classes/State/stun.gd" id="13_e7f8n"]
 [ext_resource type="Script" uid="uid://bddrkejy8namb" path="res://Classes/State/dead.gd" id="16_j8lpi"]
@@ -22,13 +21,13 @@ script = ExtResource("2_cf8p7")
 max_health = 4
 max_speed = 75.0
 acceleration = 75.0
-friction = 10.0
-jump_height = 225.0
+friction = 30.0
+jump_height = 250.0
 invuln_time = 1.3
 metadata/_custom_type_script = "uid://bgvbi4djtrhg2"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x1kum"]
-size = Vector2(4, 6)
+size = Vector2(6, 7)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jy48h"]
 atlas = ExtResource("4_88bh2")
@@ -171,16 +170,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u73eo"]
 size = Vector2(4, 6)
 
-[sub_resource type="Resource" id="Resource_76qvs"]
-script = ExtResource("6_j8lpi")
-damage = 1.0
-knockback_force = 150
-stun_time = 1.0
-metadata/_custom_type_script = "uid://c5vkfnu5l6jx7"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jy48h"]
-size = Vector2(4, 6)
-
 [sub_resource type="Animation" id="Animation_8s7r7"]
 length = 0.001
 tracks/0/type = "value"
@@ -287,18 +276,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [true, false, true, false, true, false, true, false, true, false, true]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../projectile_component:enabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8s7r7"]
 _data = {
@@ -343,23 +320,75 @@ _data = {
 &"fire": SubResource("Animation_my3k2")
 }
 
+[sub_resource type="Animation" id="Animation_jy48h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../projectile_component:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_rdxkg"]
+resource_name = "enter"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../projectile_component:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_76qvs"]
+resource_name = "exit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../projectile_component:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jy48h"]
+_data = {
+&"RESET": SubResource("Animation_jy48h"),
+&"enter": SubResource("Animation_rdxkg"),
+&"exit": SubResource("Animation_76qvs")
+}
+
 [node name="player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 66
 script = ExtResource("1_8jt68")
 stats = SubResource("Resource_3uhgh")
 
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3)
+visible = false
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_x1kum")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_u73eo")
-animation = &"stun"
+animation = &"air"
 autoplay = "idle"
 
 [node name="hurtbox_component" type="Area2D" parent="."]
-position = Vector2(0, -3)
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("5_u73eo")
@@ -367,18 +396,6 @@ script = ExtResource("5_u73eo")
 [node name="collision" type="CollisionShape2D" parent="hurtbox_component"]
 shape = SubResource("RectangleShape2D_u73eo")
 debug_color = Color(0, 1, 0, 0.419608)
-
-[node name="projectile_hitbox_component" type="Area2D" parent="." node_paths=PackedStringArray("killer")]
-script = ExtResource("5_rdxkg")
-attack = SubResource("Resource_76qvs")
-killer = NodePath("..")
-target_groups = Array[String](["Enemy Projectile"])
-metadata/_custom_type_script = "uid://ckmbl6r4aef7j"
-
-[node name="collision" type="CollisionShape2D" parent="projectile_hitbox_component"]
-position = Vector2(0, -3)
-shape = SubResource("RectangleShape2D_jy48h")
-debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="health_component" type="Node" parent="." node_paths=PackedStringArray("state_machine")]
 script = ExtResource("5_my3k2")
@@ -392,9 +409,9 @@ libraries = {
 
 [node name="projectile_component" type="Node" parent="."]
 script = ExtResource("7_e7f8n")
-max_ammo = 999
+max_ammo = 6
 proj_scene = ExtResource("8_8s7r7")
-spawn_offset = Vector2(5, -3)
+spawn_offset = Vector2(5, 0)
 metadata/_custom_type_script = "uid://bbhlg6cchcm5m"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="projectile_component"]
@@ -405,6 +422,10 @@ libraries = {
 [node name="reload_timer" type="Timer" parent="projectile_component"]
 wait_time = 0.5
 autostart = true
+
+[node name="audio_component" type="Node" parent="."]
+script = ExtResource("8_my3k2")
+metadata/_custom_type_script = "uid://bbhlg6cchcm5m"
 
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_cf8p7")
@@ -431,6 +452,11 @@ metadata/_custom_type_script = "uid://fwd0snk35wo3"
 script = ExtResource("13_e7f8n")
 metadata/_custom_type_script = "uid://fwd0snk35wo3"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="state_machine/stun"]
+libraries = {
+&"": SubResource("AnimationLibrary_jy48h")
+}
+
 [node name="dead" type="Node" parent="state_machine"]
 script = ExtResource("16_j8lpi")
 metadata/_custom_type_script = "uid://fwd0snk35wo3"
@@ -439,3 +465,5 @@ metadata/_custom_type_script = "uid://fwd0snk35wo3"
 [connection signal="death" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["die"]]
 [connection signal="took_damage" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["flash"]]
 [connection signal="projectile_fired" from="projectile_component" to="projectile_component/AnimationPlayer" method="play" binds= ["fire"]]
+[connection signal="Entered" from="state_machine/stun" to="state_machine/stun/AnimationPlayer" method="play" binds= ["enter"]]
+[connection signal="Exited" from="state_machine/stun" to="state_machine/stun/AnimationPlayer" method="play" binds= ["exit"]]

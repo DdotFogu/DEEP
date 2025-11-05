@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://c633lhy7g7n2g"
+path="res://.godot/imported/arrow_cursor.aseprite-a6fc5d1699e6b6e69e5e5d44cf6fb3ae.res"
+
+[deps]
+
+source_file="res://Assets/aseprite saves/arrow_cursor.aseprite"
+dest_files=["res://.godot/imported/arrow_cursor.aseprite-a6fc5d1699e6b6e69e5e5d44cf6fb3ae.res"]
+
+[params]
+

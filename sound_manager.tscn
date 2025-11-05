@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://6a6p8aiedigr"]
+
+[ext_resource type="Script" uid="uid://bbtf5ktgu32ol" path="res://Classes/sound_manager.gd" id="1_g5net"]
+[ext_resource type="AudioStream" uid="uid://87rab66eq6h6" path="res://Assets/sounds/shoot.wav" id="2_mdjn0"]
+[ext_resource type="AudioStream" uid="uid://5maisd02hxia" path="res://Assets/sounds/hit.wav" id="3_22ksp"]
+[ext_resource type="AudioStream" uid="uid://bskea0c4s1bux" path="res://Assets/sounds/jump.wav" id="4_ndygv"]
+[ext_resource type="AudioStream" uid="uid://by57uayrlrh35" path="res://Assets/sounds/jump_long.wav" id="5_h8btt"]
+[ext_resource type="AudioStream" uid="uid://kt18f6j1vorq" path="res://Assets/sounds/land_hard.wav" id="6_7jwsb"]
+
+[node name="audio_manager" type="Node"]
+script = ExtResource("1_g5net")
+
+[node name="shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_mdjn0")
+
+[node name="hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_22ksp")
+volume_db = -5.0
+
+[node name="jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ndygv")
+
+[node name="jump_long" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_h8btt")
+volume_db = -5.0
+
+[node name="land_hard" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_7jwsb")

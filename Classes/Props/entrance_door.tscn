@@ -2,26 +2,29 @@
 
 [ext_resource type="Texture2D" uid="uid://cgykkhvaey5x3" path="res://Assets/sprites/door.png" id="1_3jvt2"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jvt2"]
+atlas = ExtResource("1_3jvt2")
+region = Rect2(48, 62, 16, 17)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_7dot0"]
 atlas = ExtResource("1_3jvt2")
-region = Rect2(0, 16, 16, 16)
+region = Rect2(32, 62, 16, 17)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wy0up"]
 atlas = ExtResource("1_3jvt2")
-region = Rect2(16, 16, 16, 16)
+region = Rect2(16, 62, 16, 17)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tcrlk"]
 atlas = ExtResource("1_3jvt2")
-region = Rect2(32, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4iyfv"]
-atlas = ExtResource("1_3jvt2")
-region = Rect2(48, 16, 16, 16)
+region = Rect2(0, 62, 16, 17)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6ohwm"]
 animations = [{
 "frames": [{
-"duration": 10.0,
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jvt2")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_7dot0")
 }, {
 "duration": 1.0,
@@ -29,9 +32,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tcrlk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4iyfv")
 }],
 "loop": false,
 "name": &"close",
@@ -39,8 +39,8 @@ animations = [{
 }]
 
 [node name="entrance_door" type="AnimatedSprite2D"]
+position = Vector2(1, -0.5)
 sprite_frames = SubResource("SpriteFrames_6ohwm")
 animation = &"close"
 autoplay = "close"
-frame = 3
 frame_progress = 1.0

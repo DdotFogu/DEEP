@@ -60,13 +60,13 @@ region = Rect2(3, 39, 44, 6)
 font = ExtResource("5_a2258")
 font_color = Color(0.21960784, 0.21960784, 0.21960784, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8sq4i"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpiub"]
 atlas = ExtResource("3_8sq4i")
-region = Rect2(0, 17, 78, 6)
+region = Rect2(88, 17, 67, 6)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_640wx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_amv7k"]
 atlas = ExtResource("3_8sq4i")
-region = Rect2(6, 24, 67, 2)
+region = Rect2(92, 24, 59, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_1xsix"]
 font = ExtResource("5_a2258")
@@ -269,23 +269,25 @@ theme_override_constants/margin_top = 9
 theme_override_constants/margin_right = 43
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="inGameUi/info_ui/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="inGameUi/info_ui/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_top = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="inGameUi/info_ui/MarginContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="inGameUi/info_ui/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-
-[node name="hearts" type="TextureRect" parent="inGameUi/info_ui/MarginContainer/VBoxContainer/MarginContainer" node_paths=PackedStringArray("hp_progress")]
+[node name="hearts" type="TextureRect" parent="inGameUi/info_ui/MarginContainer/MarginContainer/HBoxContainer" node_paths=PackedStringArray("hp_progress")]
 layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_61f8s")
 script = ExtResource("1_8sq4i")
 hp_progress = NodePath("health_progress")
 
-[node name="health_progress" type="TextureProgressBar" parent="inGameUi/info_ui/MarginContainer/VBoxContainer/MarginContainer/hearts"]
+[node name="health_progress" type="TextureProgressBar" parent="inGameUi/info_ui/MarginContainer/MarginContainer/HBoxContainer/hearts"]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0
@@ -297,7 +299,7 @@ texture_under = SubResource("AtlasTexture_g10ll")
 texture_progress = SubResource("AtlasTexture_g10ll")
 tint_under = Color(0.050980393, 0.050980393, 0.050980393, 1)
 
-[node name="counter" type="Label" parent="inGameUi/info_ui/MarginContainer/VBoxContainer/MarginContainer/hearts"]
+[node name="counter" type="Label" parent="inGameUi/info_ui/MarginContainer/MarginContainer/HBoxContainer/hearts"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -314,21 +316,28 @@ label_settings = SubResource("LabelSettings_61f8s")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ammo_bar" type="TextureRect" parent="inGameUi/info_ui/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="inGameUi/info_ui/MarginContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_8sq4i")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+
+[node name="ammo_bar" type="TextureRect" parent="inGameUi/info_ui/MarginContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_gpiub")
 script = ExtResource("3_640wx")
 
-[node name="ammo_progress" type="TextureProgressBar" parent="inGameUi/info_ui/MarginContainer/VBoxContainer/ammo_bar"]
+[node name="ammo_progress" type="TextureProgressBar" parent="inGameUi/info_ui/MarginContainer/MarginContainer/HBoxContainer/MarginContainer/ammo_bar"]
 layout_mode = 0
-offset_left = 6.0
+offset_left = 4.0
 offset_top = 2.0
-offset_right = 73.0
+offset_right = 63.0
 offset_bottom = 4.0
-max_value = 3.0
+max_value = 6.0
 step = 0.1
-value = 3.0
-texture_progress = SubResource("AtlasTexture_640wx")
+value = 6.0
+texture_progress = SubResource("AtlasTexture_amv7k")
 
 [node name="title" type="Label" parent="inGameUi/info_ui/MarginContainer"]
 layout_mode = 2
@@ -339,7 +348,7 @@ horizontal_alignment = 1
 vertical_alignment = 2
 script = ExtResource("6_1xsix")
 
-[node name="pause_ui" type="Control" parent="inGameUi"]
+[node name="pause_ui" type="Control" parent="inGameUi" node_paths=PackedStringArray("continue_button", "quit_button")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -348,6 +357,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_rftc2")
+continue_button = NodePath("HBoxContainer/continue")
+quit_button = NodePath("HBoxContainer/quit")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="inGameUi/pause_ui"]
 libraries = {

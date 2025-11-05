@@ -38,13 +38,14 @@ func spawn_projectile(move_direction : Vector2, req_ammo:bool=true):
 		get_tree().root.add_child(proj)
 	else: proj = proj_stack.pop_front()
 	
+	proj.reset_proj()
 	proj.global_position = body.global_position + (Vector2(spawn_offset.x * move_direction.x, spawn_offset.y))
 	proj.get_node('state_machine').state_change('move', 
 	{'move_direction': move_direction})
 	
-	proj.reset_proj()
 	
 	if req_ammo: ammo -= 1
+	return proj
 
 func add_proj_to_stack(proj_to_add):
 	if proj_stack.has(proj_to_add): return

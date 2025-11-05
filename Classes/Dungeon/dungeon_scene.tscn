@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://0s1oblrv5a3d"]
+[gd_scene load_steps=7 format=3 uid="uid://0s1oblrv5a3d"]
 
+[ext_resource type="PackedScene" uid="uid://w3ipc7py6m28" path="res://hud.tscn" id="1_ikttj"]
 [ext_resource type="PackedScene" uid="uid://c8gyb4e3qyktp" path="res://Classes/Player/player.tscn" id="2_hynuw"]
 [ext_resource type="PackedScene" uid="uid://ue62rlumwdxh" path="res://Classes/Props/exit_door.tscn" id="3_hynuw"]
 [ext_resource type="Script" uid="uid://drp8lg2g2es0j" path="res://Classes/Dungeon/dungeon_manager.gd" id="3_ikttj"]
@@ -8,11 +9,18 @@
 
 [node name="dungeon_scene" type="Node2D"]
 
-[node name="exit_door" parent="." instance=ExtResource("3_hynuw")]
+[node name="HUD" parent="." instance=ExtResource("1_ikttj")]
 
 [node name="player" parent="." instance=ExtResource("2_hynuw")]
 top_level = true
 z_index = 1
+
+[node name="main_cam" type="Camera2D" parent="."]
+position = Vector2(160, 90)
+script = ExtResource("5_hynuw")
+metadata/_custom_type_script = "uid://cc41turmiaqus"
+
+[node name="exit_door" parent="." instance=ExtResource("3_hynuw")]
 
 [node name="game_manager" type="Node" parent="." node_paths=PackedStringArray("exit_door")]
 script = ExtResource("3_ikttj")
@@ -26,11 +34,6 @@ exit_door = NodePath("../exit_door")
 [node name="transition_component" type="Node" parent="game_manager"]
 script = ExtResource("5_ikttj")
 metadata/_custom_type_script = "uid://dstrth0j5pbm"
-
-[node name="main_cam" type="Camera2D" parent="."]
-position = Vector2(160, 90)
-script = ExtResource("5_hynuw")
-metadata/_custom_type_script = "uid://cc41turmiaqus"
 
 [connection signal="current_stage_finished" from="game_manager" to="game_manager/transition_component" method="await_transition"]
 [connection signal="transition_end" from="game_manager/transition_component" to="game_manager" method="add_to_floor_level"]

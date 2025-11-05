@@ -3,9 +3,8 @@ extends Node2D
 class_name base_level 
 
 @export var possible_enemies := {
-	#'frog': preload("res://Classes/Enemies/Frog/frog.tscn"),
 	'crawler': preload("res://Classes/Enemies/Crawler/crawler.tscn"),
-	
+	'frog': preload("res://Classes/Enemies/Frog/frog.tscn"),
 }
 @export var start_position : Vector2
 @export var end_position : Vector2

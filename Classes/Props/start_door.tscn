@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bvmpb2w3hvuw4"]
+[gd_scene load_steps=15 format=3 uid="uid://bvmpb2w3hvuw4"]
 
 [ext_resource type="Script" uid="uid://disgmj8sw5l0w" path="res://Classes/Components/interact_componet.gd" id="1_lyn4o"]
 [ext_resource type="Script" uid="uid://dm42hjdknv4mo" path="res://Classes/Components/scene_transitor.gd" id="2_aqd0g"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://0s1oblrv5a3d" path="res://Classes/Dungeon/dungeon_scene.tscn" id="5_6ryhw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lxycn"]
-size = Vector2(11, 3)
+size = Vector2(26, 3)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_axgxu"]
 atlas = ExtResource("2_xdqpm")
@@ -52,84 +52,18 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lyn4o"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqll7"]
 atlas = ExtResource("3_aqd0g")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xdqpm"]
-atlas = ExtResource("3_aqd0g")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aqd0g"]
-atlas = ExtResource("3_aqd0g")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kwgn5"]
-atlas = ExtResource("3_aqd0g")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uwr46"]
-atlas = ExtResource("3_aqd0g")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_86xni"]
-atlas = ExtResource("3_aqd0g")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qq0qw"]
-atlas = ExtResource("3_aqd0g")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q6q8i"]
-atlas = ExtResource("3_aqd0g")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tdh31"]
-atlas = ExtResource("3_aqd0g")
-region = Rect2(48, 0, 16, 16)
+region = Rect2(0, 0, 32, 50)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pqll7"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lyn4o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xdqpm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aqd0g")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kwgn5")
-}],
-"loop": false,
-"name": &"close",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uwr46")
+"texture": SubResource("AtlasTexture_pqll7")
 }],
 "loop": true,
-"name": &"inital",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_86xni")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qq0qw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q6q8i")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tdh31")
-}],
-"loop": false,
-"name": &"open",
+"name": &"idle",
 "speed": 5.0
 }]
 
@@ -141,13 +75,12 @@ los = false
 
 [node name="interact_area" type="CollisionShape2D" parent="interact_component"]
 z_index = 1
-position = Vector2(0, 6.5)
+position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_lxycn")
 debug_color = Color(1, 1, 0, 0.419608)
 
 [node name="arrow" type="AnimatedSprite2D" parent="interact_component"]
-visible = false
-position = Vector2(0.5, -11)
+position = Vector2(0.5, -53)
 sprite_frames = SubResource("SpriteFrames_080ip")
 autoplay = "default"
 frame_progress = 0.592466
@@ -158,10 +91,8 @@ scene = ExtResource("5_6ryhw")
 metadata/_custom_type_script = "uid://bbhlg6cchcm5m"
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -25)
 sprite_frames = SubResource("SpriteFrames_pqll7")
-animation = &"close"
-autoplay = "inital"
+animation = &"idle"
 
 [connection signal="interact" from="interact_component" to="scene_transitor" method="trans_change_scene"]
-[connection signal="target_enetered" from="interact_component" to="sprite" method="play" binds= ["open"]]
-[connection signal="target_exited" from="interact_component" to="sprite" method="play" binds= ["close"]]

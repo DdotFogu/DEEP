@@ -19,8 +19,8 @@ signal current_stage_finished
 
 @export var floor_enemy_counts := {
 	0: 3,
-	4: 5,
-	6: 7,
+	6: 5,
+	9: 7,
 }
 
 @export var exit_door : Node2D
