@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cgykkhvaey5x3" path="res://Assets/sprites/door.png" id="3_aqd0g"]
 [ext_resource type="PackedScene" uid="uid://0s1oblrv5a3d" path="res://Classes/Dungeon/dungeon_scene.tscn" id="5_6ryhw"]
 
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lxycn"]
 size = Vector2(26, 3)
 

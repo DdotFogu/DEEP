@@ -23,7 +23,6 @@ signal current_stage_finished
 	9: 7,
 }
 
-@export var exit_door : Node2D
 var pickabled_stages: Array
 var current_stage: base_level:
 	set(new_stage):
@@ -33,9 +32,13 @@ var current_stage: base_level:
 		owner.add_child.call_deferred(new_stage)
 		
 		var enemy_count = get_enemy_count()
+		new_stage.get_node('exit_door/interact_component').interact.connect(func(): 
+			current_stage_finished.emit()
+		)
+		
 		await new_stage.ready; new_stage.spawn_enemies(new_stage.create_enemies(enemy_count))
-		exit_door.global_position = current_stage.end_position
-		global.player.global_position = current_stage.start_position
+	
+		global.player.global_position = current_stage.start_position.global_position
 
 func get_enemy_count(count_map:Dictionary=floor_enemy_counts, level:int=floor_level)->int:
 	var keys=count_map.keys(); keys.sort()
@@ -48,9 +51,6 @@ func get_enemy_count(count_map:Dictionary=floor_enemy_counts, level:int=floor_le
 	return result
 
 func _ready() -> void:
-	exit_door.get_node('interact_component').interact.connect(func(): 
-		current_stage_finished.emit()
-	)
 	
 	signal_bus.floor_level_changed.emit(floor_level)
 	reset_pickable()

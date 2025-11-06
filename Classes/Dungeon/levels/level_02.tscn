@@ -381,10 +381,9 @@ sources/1 = SubResource("TileSetScenesCollectionSource_04thv")
 sources/2 = SubResource("TileSetScenesCollectionSource_cg47a")
 sources/5 = SubResource("TileSetScenesCollectionSource_1mxpu")
 
-[node name="level_02" type="Node2D" node_paths=PackedStringArray("enemy_layer")]
+[node name="level_02" type="Node2D" node_paths=PackedStringArray("start_position", "enemy_layer")]
 script = ExtResource("1_itppv")
-start_position = Vector2(152, 64)
-end_position = Vector2(160, 144)
+start_position = NodePath("start_position")
 enemy_layer = NodePath("enemy")
 
 [node name="enemy" type="TileMapLayer" parent="."]
@@ -408,3 +407,9 @@ tile_map_data = PackedByteArray("AAAHAAkAAAACAAEAAAAIAAkAAAACAAEAAAAJAAkAAAACAAE
 tile_set = SubResource("TileSet_6cn8i")
 
 [node name="hazards" type="Node2D" parent="."]
+
+[node name="exit_door" parent="." instance=ExtResource("9_ud6ew")]
+position = Vector2(151, 144)
+
+[node name="start_position" type="Marker2D" parent="."]
+position = Vector2(151, 60)

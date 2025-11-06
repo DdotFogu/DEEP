@@ -642,7 +642,6 @@ autoplay = "exit_ceil"
 
 [node name="fall" type="Node" parent="state_machine"]
 script = ExtResource("13_0eewf")
-audio_string = null
 delay_time = 5.0
 enabled = null
 metadata/_custom_type_script = "uid://fwd0snk35wo3"

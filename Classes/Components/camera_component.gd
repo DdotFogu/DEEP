@@ -31,6 +31,8 @@ func _physics_process(delta: float) -> void:
 		offset = lerp(offset, Vector2.ZERO, 10.5 * delta)
 
 func screen_shake(intensity: int, time: float):
+	if !global.screen_shake: return
+	
 	randomize()
 	noise.seed = randi()
 	noise.frequency = 2.0

@@ -3,7 +3,6 @@ extends state
 signal landed_on_floor
 signal wait_timer_timeout
 
-@export var audio_string : String = 'land_hard'
 @export var delay_time : float = 3.0
 var timer : Timer
 
@@ -31,5 +30,4 @@ func physics_update(_delta : float):
 		animation.play('land')
 		signal_bus.shake_cam.emit(1, 0.25)
 		timer.start()
-		audio.play_sound(audio_string)
 		landed_on_floor.emit()

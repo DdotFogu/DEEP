@@ -1,6 +1,12 @@
 extends projectile_component
 class_name player_projectile
 
+func _init() -> void:
+	signal_bus.floor_level_changed.connect(func(level:int):
+		if level % 3 == 0:
+			ammo = max_ammo
+		)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if !enabled or ammo == 0: return
 	if event.is_action_pressed("fire_weapon"): 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://w3ipc7py6m28"]
+[gd_scene load_steps=37 format=3 uid="uid://w3ipc7py6m28"]
 
 [ext_resource type="Script" uid="uid://in8tujef0tp8" path="res://Classes/Ui/heart_ui.gd" id="1_8sq4i"]
 [ext_resource type="Script" uid="uid://7lx6mwopb5au" path="res://Classes/Ui/transition_ui.gd" id="1_37p78"]
@@ -7,7 +7,6 @@
 [ext_resource type="FontFile" uid="uid://d1uv461hk0yrw" path="res://Assets/fonts/camilla's-pixel.ttf" id="5_a2258"]
 [ext_resource type="Script" uid="uid://ctb1gooe5yyp4" path="res://Classes/Ui/title_gui.gd" id="6_1xsix"]
 [ext_resource type="Script" uid="uid://4fu2e8evfgyo" path="res://Classes/Ui/pause_ui.gd" id="7_rftc2"]
-[ext_resource type="FontFile" uid="uid://c0fo5wcvgcsvg" path="res://Assets/fonts/TinyAndChunkyRegular-m2Dz5.ttf" id="8_61f8s"]
 [ext_resource type="Script" uid="uid://05ejb25jlq22" path="res://Classes/Ui/death_ui.gd" id="9_g10ll"]
 
 [sub_resource type="Animation" id="Animation_hkwek"]
@@ -68,16 +67,12 @@ region = Rect2(88, 17, 67, 6)
 atlas = ExtResource("3_8sq4i")
 region = Rect2(92, 24, 59, 2)
 
-[sub_resource type="LabelSettings" id="LabelSettings_1xsix"]
-font = ExtResource("5_a2258")
-font_size = 8
-
-[sub_resource type="Animation" id="Animation_g10ll"]
+[sub_resource type="Animation" id="Animation_4u2vk"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
+tracks/0/path = NodePath("ammo_text:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -87,59 +82,72 @@ tracks/0/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_rftc2"]
-resource_name = "pause"
+[sub_resource type="Animation" id="Animation_1fv7p"]
+resource_name = "replenish"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
+tracks/0/path = NodePath("ammo_text:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true]
+"values": [false, true, false, true, false, true, false, true, false, true, false]
 }
 
-[sub_resource type="Animation" id="Animation_61f8s"]
-resource_name = "unpause"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gpiub"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4u2vk"]
 _data = {
-&"RESET": SubResource("Animation_g10ll"),
-&"pause": SubResource("Animation_rftc2"),
-&"unpause": SubResource("Animation_61f8s")
+&"RESET": SubResource("Animation_4u2vk"),
+&"replenish": SubResource("Animation_1fv7p")
 }
 
-[sub_resource type="Theme" id="Theme_61f8s"]
+[sub_resource type="LabelSettings" id="LabelSettings_g10ll"]
+font = ExtResource("5_a2258")
+font_size = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61f8s"]
-bg_color = Color(0, 0, 0, 1)
-draw_center = false
+[sub_resource type="LabelSettings" id="LabelSettings_1xsix"]
+font = ExtResource("5_a2258")
+font_size = 8
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61f8s"]
+[sub_resource type="LabelSettings" id="LabelSettings_gpiub"]
+font = ExtResource("5_a2258")
+font_size = 8
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g10ll"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_61f8s"]
+load_path = "res://.godot/imported/gui.png-6b872e057cc29dc4a12abe790ca7a3e4.ctex"
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gpiub"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fv7p"]
+atlas = SubResource("CompressedTexture2D_61f8s")
+region = Rect2(3, 135, 36, 10)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rftc2"]
-bg_color = Color(1, 1, 1, 1)
-draw_center = false
-shadow_size = 10
+[sub_resource type="AtlasTexture" id="AtlasTexture_4u2vk"]
+atlas = ExtResource("3_8sq4i")
+region = Rect2(3, 146, 36, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4q17s"]
+atlas = ExtResource("3_8sq4i")
+region = Rect2(3, 113, 36, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2d608"]
+atlas = ExtResource("3_8sq4i")
+region = Rect2(3, 124, 36, 10)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_06t4h"]
+load_path = "res://.godot/imported/gui.png-6b872e057cc29dc4a12abe790ca7a3e4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ap7yk"]
+atlas = SubResource("CompressedTexture2D_06t4h")
+region = Rect2(3, 69, 36, 10)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7vrkn"]
+load_path = "res://.godot/imported/gui.png-6b872e057cc29dc4a12abe790ca7a3e4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kc73"]
+atlas = SubResource("CompressedTexture2D_7vrkn")
+region = Rect2(3, 80, 36, 10)
 
 [sub_resource type="Animation" id="Animation_amv7k"]
 length = 0.001
@@ -207,7 +215,6 @@ font = ExtResource("5_a2258")
 font_size = 8
 
 [node name="HUD" type="CanvasLayer"]
-process_mode = 3
 
 [node name="inGameUi" type="Control" parent="."]
 layout_mode = 3
@@ -219,6 +226,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="transition_ui" type="Control" parent="inGameUi"]
+process_mode = 3
 z_index = 1
 layout_mode = 1
 anchors_preset = 15
@@ -339,6 +347,23 @@ step = 0.1
 value = 6.0
 texture_progress = SubResource("AtlasTexture_amv7k")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="inGameUi/info_ui/MarginContainer/MarginContainer/HBoxContainer/MarginContainer/ammo_bar"]
+libraries = {
+&"": SubResource("AnimationLibrary_4u2vk")
+}
+
+[node name="ammo_text" type="Label" parent="inGameUi/info_ui/MarginContainer/MarginContainer/HBoxContainer/MarginContainer/ammo_bar"]
+visible = false
+layout_mode = 0
+offset_left = 4.0
+offset_top = -5.0
+offset_right = 69.0
+offset_bottom = 3.0
+text = "ammo replenished"
+label_settings = SubResource("LabelSettings_g10ll")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="title" type="Label" parent="inGameUi/info_ui/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 1
@@ -348,7 +373,8 @@ horizontal_alignment = 1
 vertical_alignment = 2
 script = ExtResource("6_1xsix")
 
-[node name="pause_ui" type="Control" parent="inGameUi" node_paths=PackedStringArray("continue_button", "quit_button")]
+[node name="pause_ui" type="Control" parent="inGameUi"]
+process_mode = 3
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -357,74 +383,61 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_rftc2")
-continue_button = NodePath("HBoxContainer/continue")
-quit_button = NodePath("HBoxContainer/quit")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="inGameUi/pause_ui"]
-libraries = {
-&"": SubResource("AnimationLibrary_gpiub")
-}
-autoplay = "unpause"
-
-[node name="PanelContainer" type="PanelContainer" parent="inGameUi/pause_ui"]
+[node name="title" type="Label" parent="inGameUi/pause_ui"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_37p78")
-
-[node name="color" type="ColorRect" parent="inGameUi/pause_ui/PanelContainer"]
-layout_mode = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.5882353)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="inGameUi/pause_ui"]
-layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -60.0
+anchor_bottom = 1.0
+offset_left = -24.0
 offset_top = -20.0
-offset_right = 60.0
-offset_bottom = 20.0
+offset_right = 24.0
+offset_bottom = -4.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
+text = "paused"
+label_settings = SubResource("LabelSettings_gpiub")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="continue" type="Button" parent="inGameUi/pause_ui/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="inGameUi/pause_ui"]
+layout_mode = 1
+offset_right = 51.0
+offset_bottom = 88.0
+theme_override_constants/margin_left = -11
+theme_override_constants/margin_top = 12
+
+[node name="vbox" type="VBoxContainer" parent="inGameUi/pause_ui/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="retry" type="TextureButton" parent="inGameUi/pause_ui/MarginContainer/vbox"]
+layout_mode = 2
+size_flags_horizontal = 0
 focus_neighbor_left = NodePath("../quit")
-focus_neighbor_right = NodePath("../quit")
-theme = SubResource("Theme_61f8s")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("8_61f8s")
-theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxFlat_61f8s")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_61f8s")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_g10ll")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_gpiub")
-theme_override_styles/focus = SubResource("StyleBoxFlat_rftc2")
-text = "continue"
+focus_neighbor_right = NodePath("../menu")
+texture_normal = SubResource("AtlasTexture_1fv7p")
+texture_focused = SubResource("AtlasTexture_4u2vk")
 
-[node name="quit" type="Button" parent="inGameUi/pause_ui/HBoxContainer"]
+[node name="menu" type="TextureButton" parent="inGameUi/pause_ui/MarginContainer/vbox"]
 layout_mode = 2
-focus_neighbor_left = NodePath("../continue")
-focus_neighbor_right = NodePath("../continue")
-theme = SubResource("Theme_61f8s")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("8_61f8s")
-theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxFlat_61f8s")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_61f8s")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_g10ll")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_gpiub")
-theme_override_styles/focus = SubResource("StyleBoxFlat_rftc2")
-text = "quit"
+size_flags_horizontal = 0
+focus_neighbor_left = NodePath("../retry")
+focus_neighbor_right = NodePath("../quit")
+texture_normal = SubResource("AtlasTexture_4q17s")
+texture_focused = SubResource("AtlasTexture_2d608")
+
+[node name="quit" type="TextureButton" parent="inGameUi/pause_ui/MarginContainer/vbox"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_left = NodePath("../menu")
+focus_neighbor_right = NodePath("../retry")
+texture_normal = SubResource("AtlasTexture_ap7yk")
+texture_focused = SubResource("AtlasTexture_5kc73")
 
 [node name="death_ui" type="Control" parent="inGameUi"]
 layout_mode = 1
@@ -474,5 +487,7 @@ autowrap_mode = 2
 visible_characters = 0
 visible_ratio = 0.0
 
+[connection signal="paused" from="inGameUi/pause_ui" to="inGameUi/pause_ui" method="show"]
+[connection signal="unpaused" from="inGameUi/pause_ui" to="inGameUi/pause_ui" method="hide"]
 [connection signal="death_emitted" from="inGameUi/death_ui" to="inGameUi/death_ui/AnimationPlayer" method="play" binds= ["death"]]
 [connection signal="restart" from="inGameUi/death_ui" to="inGameUi/death_ui/AnimationPlayer" method="play" binds= ["RESET"]]

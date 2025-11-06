@@ -6,8 +6,7 @@ class_name base_level
 	'crawler': preload("res://Classes/Enemies/Crawler/crawler.tscn"),
 	'frog': preload("res://Classes/Enemies/Frog/frog.tscn"),
 }
-@export var start_position : Vector2
-@export var end_position : Vector2
+@export var start_position : Marker2D
 @export var enemy_layer : TileMapLayer
 
 var spawn_groups:={}
