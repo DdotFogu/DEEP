@@ -33,11 +33,13 @@ var current_stage: base_level:
 		
 		var enemy_count = get_enemy_count()
 		new_stage.get_node('exit_door/interact_component').interact.connect(func(): 
+			global.levels_cleared += 1
 			current_stage_finished.emit()
 		)
 		
 		await new_stage.ready; new_stage.spawn_enemies(new_stage.create_enemies(enemy_count))
-	
+		
+		global.current_level = new_stage
 		global.player.global_position = current_stage.start_position.global_position
 
 func get_enemy_count(count_map:Dictionary=floor_enemy_counts, level:int=floor_level)->int:
@@ -51,7 +53,7 @@ func get_enemy_count(count_map:Dictionary=floor_enemy_counts, level:int=floor_le
 	return result
 
 func _ready() -> void:
-	
+	global.levels_cleared = 0
 	signal_bus.floor_level_changed.emit(floor_level)
 	reset_pickable()
 	set_new_stage()

@@ -4,8 +4,11 @@ extends Control
 @onready var main: Control = $"../main"
 @onready var settings: TextureButton = $"../main/MarginContainer/vbox/settings"
 @onready var resolution_text: Label = $MarginContainer/vbox/HBoxContainer2/resolution_text
-@onready var sfx_text: Label = $MarginContainer/vbox/HBoxContainer4/text
-@onready var music_text: Label = $MarginContainer/vbox/HBoxContainer5/text
+@onready var fullscreen: TextureButton = $MarginContainer/vbox/HBoxContainer/fullscreen
+@onready var screen_shake: TextureButton = $MarginContainer/vbox/HBoxContainer3/screen_shake
+@onready var music: TextureButton = $MarginContainer/vbox/HBoxContainer5/music
+@onready var sfx: TextureButton = $MarginContainer/vbox/HBoxContainer6/sfx
+
 
 var res_options := {
 	1: Vector2(320, 180),
@@ -17,17 +20,22 @@ var res_options := {
 }
 var res_selection := 5
 
-var volume_options := {
-	1: 0,
-	2: 25,
-	3: 50,
-	4: 75,
-	5: 100
-}
-var sfx_volume_selection := 5
-var music_volume_selection := 5
-
 func _ready() -> void:
+	res_selection = global.res_scale
+	
+	if !global.music: music.button_pressed = false
+	else: music.button_pressed = true
+	if !global.sfx: sfx.button_pressed = false
+	else: sfx.button_pressed = true
+	
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		fullscreen.button_pressed = true
+	if global.screen_shake:
+		screen_shake.button_pressed = true
+	
+	var res = res_options[res_selection]
+	resolution_text.text = str(int(res.x)) + "x" + str(int(res.y))
+	
 	menu.pressed.connect(func():
 		hide()
 		main.show()
@@ -42,6 +50,9 @@ func _on_fullscreen_toggled(toggled_on: bool) -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	
+	var res = res_options[res_selection]
+	set_resolution(res)
 
 func _on_screen_shake_toggled(toggled_on: bool) -> void:
 	global.screen_shake = toggled_on
@@ -53,26 +64,22 @@ func _on_resolution_pressed() -> void:
 	var res = res_options[res_selection]
 	resolution_text.text = str(int(res.x)) + "x" + str(int(res.y))
 	set_resolution(res)
+	global.res_scale = res_selection
 
-func set_bus_volume(bus_name: String, percent: float) -> void:
-	var bus_index = AudioServer.get_bus_index(bus_name)
-	if bus_index == -1:
-		return #
-	var db = linear_to_db(percent / 100.0)
-	AudioServer.set_bus_volume_db(bus_index, db)
+func _on_sfx_toggled(toggled_on: bool) -> void:
+	var index = AudioServer.get_bus_index("SFX")
+	if toggled_on:
+		AudioServer.set_bus_volume_db(index, 0)
+	else:
+		AudioServer.set_bus_volume_db(index, -99)
+	
+	global.sfx = toggled_on
 
-func _on_sfx_volume_pressed() -> void:
-	sfx_volume_selection += 1
-	if sfx_volume_selection > volume_options.size():
-		sfx_volume_selection = 1
-	var vol = volume_options[sfx_volume_selection]
-	sfx_text.text = str(int(vol)) + "%"
-	set_bus_volume("SFX", vol)
-
-func _on_music_volume_pressed() -> void:
-	music_volume_selection += 1
-	if music_volume_selection > volume_options.size():
-		music_volume_selection = 1
-	var vol = volume_options[music_volume_selection]
-	music_text.text = str(int(vol)) + "%"
-	set_bus_volume("Music", vol)
+func _on_music_toggled(toggled_on: bool) -> void:
+	var index = AudioServer.get_bus_index("Music")
+	if toggled_on:
+		AudioServer.set_bus_volume_db(index, 0)
+	else:
+		AudioServer.set_bus_volume_db(index, -99)
+	
+	global.music = toggled_on

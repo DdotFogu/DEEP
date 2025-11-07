@@ -28,6 +28,6 @@ func physics_update(_delta : float):
 	
 	if body.is_on_floor() and timer.is_stopped():
 		animation.play('land')
-		signal_bus.shake_cam.emit(1, 0.25)
+		signal_bus.shake_cam.emit(3, 0.25)
 		timer.start()
 		landed_on_floor.emit()

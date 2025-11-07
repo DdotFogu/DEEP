@@ -10,7 +10,7 @@ func damage(attack:Attack, killer : Node):
 	super(attack, killer)
 	
 	signal_bus.player_health_changed.emit(health)
-	signal_bus.shake_cam.emit(3, 0.25)
+	signal_bus.shake_cam.emit(3, 0.4)
 
 func die():
 	super()

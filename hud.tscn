@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://w3ipc7py6m28"]
+[gd_scene load_steps=41 format=3 uid="uid://w3ipc7py6m28"]
 
 [ext_resource type="Script" uid="uid://in8tujef0tp8" path="res://Classes/Ui/heart_ui.gd" id="1_8sq4i"]
 [ext_resource type="Script" uid="uid://7lx6mwopb5au" path="res://Classes/Ui/transition_ui.gd" id="1_37p78"]
@@ -6,8 +6,10 @@
 [ext_resource type="Script" uid="uid://cmi8yicciwsp5" path="res://Classes/Ui/ammo_gui.gd" id="3_640wx"]
 [ext_resource type="FontFile" uid="uid://d1uv461hk0yrw" path="res://Assets/fonts/camilla's-pixel.ttf" id="5_a2258"]
 [ext_resource type="Script" uid="uid://ctb1gooe5yyp4" path="res://Classes/Ui/title_gui.gd" id="6_1xsix"]
+[ext_resource type="Script" uid="uid://cp505ab6dy1bv" path="res://Classes/Ui/time_gui.gd" id="7_gpiub"]
 [ext_resource type="Script" uid="uid://4fu2e8evfgyo" path="res://Classes/Ui/pause_ui.gd" id="7_rftc2"]
 [ext_resource type="Script" uid="uid://05ejb25jlq22" path="res://Classes/Ui/death_ui.gd" id="9_g10ll"]
+[ext_resource type="Texture2D" uid="uid://d3tw1r6jx1n4g" path="res://Assets/sprites/arrow_cursor.png" id="9_gpiub"]
 
 [sub_resource type="Animation" id="Animation_hkwek"]
 length = 0.001
@@ -67,47 +69,6 @@ region = Rect2(88, 17, 67, 6)
 atlas = ExtResource("3_8sq4i")
 region = Rect2(92, 24, 59, 2)
 
-[sub_resource type="Animation" id="Animation_4u2vk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ammo_text:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_1fv7p"]
-resource_name = "replenish"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ammo_text:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [false, true, false, true, false, true, false, true, false, true, false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4u2vk"]
-_data = {
-&"RESET": SubResource("Animation_4u2vk"),
-&"replenish": SubResource("Animation_1fv7p")
-}
-
-[sub_resource type="LabelSettings" id="LabelSettings_g10ll"]
-font = ExtResource("5_a2258")
-font_size = 8
-
 [sub_resource type="LabelSettings" id="LabelSettings_1xsix"]
 font = ExtResource("5_a2258")
 font_size = 8
@@ -154,54 +115,106 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PanelContainer/color:color")
+tracks/0/path = NodePath("../pause_ui:can_pause")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0.050980393, 0.050980393, 0.050980393, 0), Color(0.050980393, 0.050980393, 0.050980393, 1)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CenterContainer/text:visible_ratio")
+tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("buttons/vbox:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_gpiub"]
 resource_name = "death"
 length = 5.0
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PanelContainer/color:color")
-tracks/0/interp = 0
+tracks/0/path = NodePath("buttons/vbox/retry")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 1.25, 1.5, 1.75, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(0.050980393, 0.050980393, 0.050980393, 0), Color(0.050980393, 0.050980393, 0.050980393, 0), Color(0.050980393, 0.050980393, 0.050980393, 0.25), Color(0.050980393, 0.050980393, 0.050980393, 0.5), Color(0.050980393, 0.050980393, 0.050980393, 0.75), Color(0.050980393, 0.050980393, 0.050980393, 1)]
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"grab_focus"
+}]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CenterContainer/text:visible_ratio")
+tracks/1/path = NodePath("../pause_ui:can_pause")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(2.5, 5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.25, 0.5, 0.75, 1, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, 1.0]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.25), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.75), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("buttons/vbox:modulate")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.5, 1.6333333, 1.75, 1.8666667, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0.20000005), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.79999995), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"update_info"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_amv7k"]
@@ -210,9 +223,50 @@ _data = {
 &"death": SubResource("Animation_gpiub")
 }
 
-[sub_resource type="LabelSettings" id="LabelSettings_amv7k"]
-font = ExtResource("5_a2258")
-font_size = 8
+[sub_resource type="AtlasTexture" id="AtlasTexture_axgxu"]
+atlas = ExtResource("9_gpiub")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tglh"]
+atlas = ExtResource("9_gpiub")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ft8vo"]
+atlas = ExtResource("9_gpiub")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vb2k"]
+atlas = ExtResource("9_gpiub")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fefn"]
+atlas = ExtResource("9_gpiub")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_amv7k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axgxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2tglh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft8vo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vb2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2fefn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gpiub"]
 
 [node name="HUD" type="CanvasLayer"]
 
@@ -275,7 +329,7 @@ grow_vertical = 2
 theme_override_constants/margin_left = 43
 theme_override_constants/margin_top = 9
 theme_override_constants/margin_right = 43
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_bottom = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="inGameUi/info_ui/MarginContainer"]
 layout_mode = 2
@@ -315,7 +369,7 @@ anchor_bottom = 1.0
 offset_left = 1.999999
 offset_top = 2.0
 offset_right = 39.436897
-offset_bottom = 15.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.515, 0.515)
@@ -347,31 +401,26 @@ step = 0.1
 value = 6.0
 texture_progress = SubResource("AtlasTexture_amv7k")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="inGameUi/info_ui/MarginContainer/MarginContainer/HBoxContainer/MarginContainer/ammo_bar"]
-libraries = {
-&"": SubResource("AnimationLibrary_4u2vk")
-}
+[node name="VBoxContainer" type="VBoxContainer" parent="inGameUi/info_ui/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
 
-[node name="ammo_text" type="Label" parent="inGameUi/info_ui/MarginContainer/MarginContainer/HBoxContainer/MarginContainer/ammo_bar"]
-visible = false
-layout_mode = 0
-offset_left = 4.0
-offset_top = -5.0
-offset_right = 69.0
-offset_bottom = 3.0
-text = "ammo replenished"
-label_settings = SubResource("LabelSettings_g10ll")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="title" type="Label" parent="inGameUi/info_ui/MarginContainer"]
+[node name="title" type="Label" parent="inGameUi/info_ui/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
-text = "home"
+text = "dungeon - 1"
 label_settings = SubResource("LabelSettings_1xsix")
 horizontal_alignment = 1
 vertical_alignment = 2
 script = ExtResource("6_1xsix")
+
+[node name="time" type="Label" parent="inGameUi/info_ui/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "time : 0.0"
+label_settings = SubResource("LabelSettings_1xsix")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_gpiub")
 
 [node name="pause_ui" type="Control" parent="inGameUi"]
 process_mode = 3
@@ -386,17 +435,17 @@ script = ExtResource("7_rftc2")
 
 [node name="title" type="Label" parent="inGameUi/pause_ui"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 offset_left = -24.0
-offset_top = -20.0
+offset_top = -60.0
 offset_right = 24.0
-offset_bottom = -4.0
+offset_bottom = -44.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 text = "paused"
 label_settings = SubResource("LabelSettings_gpiub")
 horizontal_alignment = 1
@@ -440,6 +489,7 @@ texture_normal = SubResource("AtlasTexture_ap7yk")
 texture_focused = SubResource("AtlasTexture_5kc73")
 
 [node name="death_ui" type="Control" parent="inGameUi"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -465,27 +515,72 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_37p78")
 [node name="color" type="ColorRect" parent="inGameUi/death_ui/PanelContainer"]
 layout_mode = 2
 mouse_filter = 2
-color = Color(0.050980393, 0.050980393, 0.050980393, 0)
+color = Color(0.050980393, 0.050980393, 0.050980393, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="inGameUi/death_ui"]
+[node name="buttons" type="MarginContainer" parent="inGameUi/death_ui"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 36.0
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+
+[node name="vbox" type="VBoxContainer" parent="inGameUi/death_ui/buttons"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="retry" type="TextureButton" parent="inGameUi/death_ui/buttons/vbox"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_left = NodePath("../quit")
+focus_neighbor_right = NodePath("../menu")
+texture_normal = SubResource("AtlasTexture_1fv7p")
+texture_focused = SubResource("AtlasTexture_4u2vk")
+
+[node name="menu" type="TextureButton" parent="inGameUi/death_ui/buttons/vbox"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_left = NodePath("../retry")
+focus_neighbor_right = NodePath("../quit")
+texture_normal = SubResource("AtlasTexture_4q17s")
+texture_focused = SubResource("AtlasTexture_2d608")
+
+[node name="quit" type="TextureButton" parent="inGameUi/death_ui/buttons/vbox"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_left = NodePath("../menu")
+focus_neighbor_right = NodePath("../retry")
+texture_normal = SubResource("AtlasTexture_ap7yk")
+texture_focused = SubResource("AtlasTexture_5kc73")
+
+[node name="arrow" type="AnimatedSprite2D" parent="inGameUi/death_ui/buttons"]
+position = Vector2(56, 72)
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_amv7k")
+autoplay = "default"
+
+[node name="info" type="PanelContainer" parent="inGameUi/death_ui"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gpiub")
 
-[node name="text" type="Label" parent="inGameUi/death_ui/CenterContainer"]
-custom_minimum_size = Vector2(60, 0)
+[node name="title" type="Label" parent="inGameUi/death_ui/info"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "you died
-press e to retry"
-label_settings = SubResource("LabelSettings_amv7k")
+levels cleared : 15
+time take: 60.0"
+label_settings = SubResource("LabelSettings_1xsix")
 horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-visible_characters = 0
-visible_ratio = 0.0
+vertical_alignment = 2
+script = ExtResource("6_1xsix")
 
 [connection signal="paused" from="inGameUi/pause_ui" to="inGameUi/pause_ui" method="show"]
 [connection signal="unpaused" from="inGameUi/pause_ui" to="inGameUi/pause_ui" method="hide"]

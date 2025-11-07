@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://0s1oblrv5a3d"]
+[gd_scene load_steps=7 format=3 uid="uid://0s1oblrv5a3d"]
 
 [ext_resource type="PackedScene" uid="uid://w3ipc7py6m28" path="res://hud.tscn" id="1_ikttj"]
 [ext_resource type="PackedScene" uid="uid://c8gyb4e3qyktp" path="res://Classes/Player/player.tscn" id="2_hynuw"]
 [ext_resource type="Script" uid="uid://drp8lg2g2es0j" path="res://Classes/Dungeon/dungeon_manager.gd" id="3_ikttj"]
+[ext_resource type="Script" uid="uid://wy5pqqkxool0" path="res://Classes/Components/audio_component.gd" id="4_ikttj"]
 [ext_resource type="Script" uid="uid://cc41turmiaqus" path="res://Classes/Components/camera_component.gd" id="5_hynuw"]
 [ext_resource type="Script" uid="uid://dstrth0j5pbm" path="res://Classes/Components/transition_component.gd" id="5_ikttj"]
 
@@ -22,6 +23,10 @@ floor_enemy_counts = {
 script = ExtResource("5_ikttj")
 metadata/_custom_type_script = "uid://dstrth0j5pbm"
 
+[node name="audio_component" type="Node" parent="game_manager"]
+script = ExtResource("4_ikttj")
+metadata/_custom_type_script = "uid://bbhlg6cchcm5m"
+
 [node name="main_cam" type="Camera2D" parent="."]
 position = Vector2(160, 90)
 script = ExtResource("5_hynuw")
@@ -32,7 +37,8 @@ top_level = true
 z_index = 1
 
 [connection signal="current_stage_finished" from="game_manager" to="game_manager/transition_component" method="await_transition"]
-[connection signal="transition_end" from="game_manager/transition_component" to="game_manager" method="add_to_floor_level"]
+[connection signal="ready" from="game_manager" to="game_manager/audio_component" method="play_audio" binds= ["dungeon_music", Vector2(0, 0)]]
 [connection signal="transition_end" from="game_manager/transition_component" to="game_manager" method="set_new_stage"]
+[connection signal="transition_end" from="game_manager/transition_component" to="game_manager" method="add_to_floor_level"]
 
 [editable path="HUD"]

@@ -10,6 +10,7 @@ signal unpaused
 @export var can_pause : bool = true
 
 func _ready() -> void:
+	visible = false
 	menu.pressed.connect(func(): global.transition_ui.transition_scene(load("res://main_menu.tscn")))
 	quit.pressed.connect(func(): get_tree().quit())
 	retry.pressed.connect(func(): get_tree().reload_current_scene())
@@ -26,6 +27,9 @@ func _input(event: InputEvent) -> void:
 		get_tree().paused = is_paused
 		
 		if is_paused: 
+			audio.toggle_sound('dungeon_music', false)
 			menu.grab_focus()
 			paused.emit()
-		else: unpaused.emit()
+		else: 
+			audio.toggle_sound('dungeon_music', true)
+			unpaused.emit()

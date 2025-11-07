@@ -1,9 +1,8 @@
-[gd_scene load_steps=47 format=3 uid="uid://b06uuiqx4mlmk"]
+[gd_scene load_steps=39 format=3 uid="uid://b06uuiqx4mlmk"]
 
 [ext_resource type="Script" uid="uid://d2t1mpxw7sxop" path="res://Classes/Enemies/base_enemy.gd" id="1_pa3eg"]
 [ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="2_7v481"]
 [ext_resource type="Texture2D" uid="uid://csc4lbkl6ail8" path="res://Assets/sprites/character_sheets.png" id="3_0jagc"]
-[ext_resource type="Texture2D" uid="uid://d8oy7xooqr0i" path="res://Assets/sprites/tongue_line.png" id="4_3dxkr"]
 [ext_resource type="Script" uid="uid://bagit57t2ya26" path="res://Classes/Components/target_detection_component.gd" id="5_b2rhi"]
 [ext_resource type="Script" uid="uid://bye0snk55abo6" path="res://Classes/Components/hurtbox_component.gd" id="5_jtgbq"]
 [ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="6_s8t26"]
@@ -13,11 +12,8 @@
 [ext_resource type="Script" uid="uid://orhfywad7py6" path="res://Classes/State/stun.gd" id="10_f37is"]
 [ext_resource type="Script" uid="uid://bu4ewuyh1nqb2" path="res://Classes/State/idle.gd" id="11_5obsa"]
 [ext_resource type="Script" uid="uid://dtxjwasofqgrm" path="res://Classes/State/air.gd" id="12_556nk"]
-[ext_resource type="Script" uid="uid://ytbuftw084k7" path="res://Classes/Enemies/Frog/frog_tounge.gd" id="13_mmgy1"]
-[ext_resource type="Script" uid="uid://bo1ffxi0mgaq6" path="res://Classes/Components/projectile_component.gd" id="14_b2rhi"]
 [ext_resource type="Script" uid="uid://bddrkejy8namb" path="res://Classes/State/dead.gd" id="15_8ygc0"]
 [ext_resource type="Script" uid="uid://cdnc5mq0ihnir" path="res://Classes/Enemies/Frog/frog_jump.gd" id="15_lpekp"]
-[ext_resource type="PackedScene" uid="uid://rigwckse3036" path="res://Classes/Projectile/tounge.tscn" id="15_mmgy1"]
 
 [sub_resource type="Resource" id="Resource_8yfrw"]
 script = ExtResource("2_7v481")
@@ -257,18 +253,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../tongue_line:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_a1yn1"]
 resource_name = "dead"
@@ -299,18 +283,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [true, false, true, false, true, false, true, false, true, false, true]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../../tongue_line:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ndsoh"]
 _data = {
@@ -318,90 +290,9 @@ _data = {
 &"dead": SubResource("Animation_a1yn1")
 }
 
-[sub_resource type="Animation" id="Animation_lpekp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../target_dection_component/collision:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_3dxkr"]
-resource_name = "enter"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../target_dection_component/collision:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../jump/jump_timer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"stop"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_b2rhi"]
-resource_name = "exit"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../target_dection_component/collision:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(2),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../jump/jump_timer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [-1],
-"method": &"start"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gk7rk"]
-_data = {
-&"RESET": SubResource("Animation_lpekp"),
-&"enter": SubResource("Animation_3dxkr"),
-&"exit": SubResource("Animation_b2rhi")
-}
-
 [node name="frog" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 32
-collision_mask = 2
+collision_mask = 66
 script = ExtResource("1_pa3eg")
 stats = SubResource("Resource_8yfrw")
 metadata/_custom_type_script = "uid://c2djvxdicte83"
@@ -415,12 +306,6 @@ shape = SubResource("RectangleShape2D_f50g0")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_08cr8")
 animation = &"jump"
-
-[node name="tongue_line" type="Line2D" parent="."]
-z_index = -1
-width = 4.0
-texture = ExtResource("4_3dxkr")
-texture_mode = 1
 
 [node name="target_dection_component" type="Area2D" parent="."]
 collision_layer = 0
@@ -492,34 +377,14 @@ libraries = {
 
 [node name="jump" type="Node" parent="state_machine"]
 script = ExtResource("15_lpekp")
-audio_string = "jump_long"
 metadata/_custom_type_script = "uid://bvc2jvk1wur4t"
 
 [node name="jump_timer" type="Timer" parent="state_machine/jump"]
 wait_time = 2.0
 autostart = true
 
-[node name="frog_tongue" type="Node" parent="state_machine" node_paths=PackedStringArray("projectile_component", "tongue_line")]
-script = ExtResource("13_mmgy1")
-projectile_component = NodePath("projectile_component")
-tongue_line = NodePath("../../tongue_line")
-metadata/_custom_type_script = "uid://ytbuftw084k7"
-
-[node name="projectile_component" type="Node" parent="state_machine/frog_tongue"]
-script = ExtResource("14_b2rhi")
-max_ammo = 999
-proj_scene = ExtResource("15_mmgy1")
-metadata/_custom_type_script = "uid://bo1ffxi0mgaq6"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="state_machine/frog_tongue"]
-libraries = {
-&"": SubResource("AnimationLibrary_gk7rk")
-}
-
 [connection signal="target_entered" from="target_dection_component" to="state_machine" method="state_change" binds= ["frog_tongue", {}]]
 [connection signal="hurtbox_hit" from="hurtbox_component" to="health_component" method="damage"]
 [connection signal="death" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["die"]]
 [connection signal="Entered" from="state_machine/dead" to="state_machine/dead/AnimationPlayer" method="play" binds= ["dead"]]
 [connection signal="timeout" from="state_machine/jump/jump_timer" to="state_machine" method="state_change" binds= ["jump", {}]]
-[connection signal="Entered" from="state_machine/frog_tongue" to="state_machine/frog_tongue/AnimationPlayer" method="play" binds= ["enter"]]
-[connection signal="Exited" from="state_machine/frog_tongue" to="state_machine/frog_tongue/AnimationPlayer" method="play" binds= ["exit"]]

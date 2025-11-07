@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://6a6p8aiedigr"]
+[gd_scene load_steps=9 format=3 uid="uid://6a6p8aiedigr"]
 
 [ext_resource type="Script" uid="uid://bbtf5ktgu32ol" path="res://Classes/sound_manager.gd" id="1_g5net"]
 [ext_resource type="AudioStream" uid="uid://87rab66eq6h6" path="res://Assets/sounds/shoot.wav" id="2_mdjn0"]
@@ -6,23 +6,43 @@
 [ext_resource type="AudioStream" uid="uid://bskea0c4s1bux" path="res://Assets/sounds/jump.wav" id="4_ndygv"]
 [ext_resource type="AudioStream" uid="uid://by57uayrlrh35" path="res://Assets/sounds/jump_long.wav" id="5_h8btt"]
 [ext_resource type="AudioStream" uid="uid://kt18f6j1vorq" path="res://Assets/sounds/land_hard.wav" id="6_7jwsb"]
+[ext_resource type="AudioStream" uid="uid://dk4ee42v3qcr8" path="res://Assets/sounds/dungeon_music.mp3" id="7_h42hm"]
+[ext_resource type="AudioStream" uid="uid://ql58yger4oj1" path="res://Assets/sounds/menu_music.mp3" id="8_lxsk3"]
 
 [node name="audio_manager" type="Node"]
+process_mode = 3
 script = ExtResource("1_g5net")
 
 [node name="shoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_mdjn0")
+bus = &"SFX"
 
 [node name="hit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_22ksp")
 volume_db = -5.0
+bus = &"SFX"
 
 [node name="jump" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_ndygv")
+bus = &"SFX"
 
 [node name="jump_long" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_h8btt")
 volume_db = -5.0
+bus = &"SFX"
 
 [node name="land_hard" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_7jwsb")
+bus = &"SFX"
+
+[node name="dungeon_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_h42hm")
+volume_db = -10.0
+bus = &"Music"
+parameters/looping = true
+
+[node name="menu_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_lxsk3")
+volume_db = -10.0
+bus = &"Music"
+parameters/looping = true

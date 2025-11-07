@@ -5,6 +5,7 @@ class_name base_level
 @export var possible_enemies := {
 	'crawler': preload("res://Classes/Enemies/Crawler/crawler.tscn"),
 	'frog': preload("res://Classes/Enemies/Frog/frog.tscn"),
+	'ghost': preload("res://Classes/Enemies/Ghost/ghost.tscn")
 }
 @export var start_position : Marker2D
 @export var enemy_layer : TileMapLayer

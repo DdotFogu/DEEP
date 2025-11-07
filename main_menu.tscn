@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://cik1572nfyhhs"]
+[gd_scene load_steps=69 format=4 uid="uid://cik1572nfyhhs"]
 
 [ext_resource type="Texture2D" uid="uid://bs2505m7x1whu" path="res://Assets/sprites/gui.png" id="1_06t4h"]
 [ext_resource type="Script" uid="uid://byco3wdibhbp1" path="res://Classes/Ui/main_buttons.gd" id="1_7vrkn"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://ue62rlumwdxh" path="res://Classes/Props/exit_door.tscn" id="15_7bbuq"]
 [ext_resource type="Texture2D" uid="uid://csc4lbkl6ail8" path="res://Assets/sprites/character_sheets.png" id="16_g8g3n"]
 [ext_resource type="PackedScene" uid="uid://w3ipc7py6m28" path="res://hud.tscn" id="17_8u0te"]
+[ext_resource type="Script" uid="uid://wy5pqqkxool0" path="res://Classes/Components/audio_component.gd" id="19_mg3m2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8qtwp"]
 font = ExtResource("2_qe12f")
@@ -25,7 +26,7 @@ font_size = 8
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qtwp"]
 atlas = ExtResource("1_06t4h")
-region = Rect2(96, 38, 88, 34)
+region = Rect2(96, 30, 88, 42)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7vrkn"]
 atlas = ExtResource("1_06t4h")
@@ -62,6 +63,10 @@ load_path = "res://.godot/imported/gui.png-6b872e057cc29dc4a12abe790ca7a3e4.ctex
 [sub_resource type="AtlasTexture" id="AtlasTexture_glbon"]
 atlas = SubResource("CompressedTexture2D_e5qqf")
 region = Rect2(3, 80, 36, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojb7r"]
+atlas = ExtResource("1_06t4h")
+region = Rect2(98, 83, 78, 11)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oiatc"]
 atlas = ExtResource("1_06t4h")
@@ -465,10 +470,10 @@ grow_vertical = 2
 color = Color(0.050980393, 0.050980393, 0.050980393, 1)
 
 [node name="watermark" type="Label" parent="GUI"]
-offset_left = 2.0000002
-offset_top = 176.0
-offset_right = 66.0
-offset_bottom = 184.0
+offset_left = 6.9999995
+offset_top = 169.0
+offset_right = 159.0
+offset_bottom = 185.0
 scale = Vector2(0.7, 0.7)
 size_flags_vertical = 8
 text = "developed by camilla"
@@ -563,11 +568,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 8
 
-[node name="game title" type="TextureRect" parent="GUI/settings/MarginContainer/vbox"]
+[node name="title" type="TextureRect" parent="GUI/settings/MarginContainer/vbox"]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-texture = SubResource("AtlasTexture_8qtwp")
+texture = SubResource("AtlasTexture_ojb7r")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GUI/settings/MarginContainer/vbox"]
 layout_mode = 2
@@ -626,33 +629,11 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 focus_neighbor_left = NodePath("../../HBoxContainer2/resolution")
-focus_neighbor_right = NodePath("../../HBoxContainer4/volume")
+focus_neighbor_right = NodePath("../../HBoxContainer5/music")
 toggle_mode = true
 button_pressed = true
 texture_normal = SubResource("AtlasTexture_oiatc")
 texture_pressed = SubResource("AtlasTexture_mg3m2")
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="GUI/settings/MarginContainer/vbox"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Label" type="Label" parent="GUI/settings/MarginContainer/vbox/HBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "sfx volume"
-label_settings = SubResource("LabelSettings_8qtwp")
-
-[node name="text" type="Label" parent="GUI/settings/MarginContainer/vbox/HBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "100%"
-label_settings = SubResource("LabelSettings_8qtwp")
-
-[node name="volume" type="TextureButton" parent="GUI/settings/MarginContainer/vbox/HBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 8
-focus_neighbor_left = NodePath("../../HBoxContainer3/screen_shake")
-focus_neighbor_right = NodePath("../../HBoxContainer5/volume")
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="GUI/settings/MarginContainer/vbox"]
 layout_mode = 2
@@ -661,31 +642,51 @@ size_flags_horizontal = 0
 [node name="Label" type="Label" parent="GUI/settings/MarginContainer/vbox/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "music volume"
+text = "enable music"
 label_settings = SubResource("LabelSettings_8qtwp")
 
-[node name="text" type="Label" parent="GUI/settings/MarginContainer/vbox/HBoxContainer5"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "100%"
-label_settings = SubResource("LabelSettings_8qtwp")
-
-[node name="volume" type="TextureButton" parent="GUI/settings/MarginContainer/vbox/HBoxContainer5"]
+[node name="music" type="TextureButton" parent="GUI/settings/MarginContainer/vbox/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 8
-focus_neighbor_left = NodePath("../../HBoxContainer4/volume")
+size_flags_vertical = 8
+focus_neighbor_left = NodePath("../../HBoxContainer3/screen_shake")
+focus_neighbor_right = NodePath("../../HBoxContainer6/sfx")
+toggle_mode = true
+button_pressed = true
+texture_normal = SubResource("AtlasTexture_oiatc")
+texture_pressed = SubResource("AtlasTexture_mg3m2")
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="GUI/settings/MarginContainer/vbox"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="GUI/settings/MarginContainer/vbox/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "enable sfx"
+label_settings = SubResource("LabelSettings_8qtwp")
+
+[node name="sfx" type="TextureButton" parent="GUI/settings/MarginContainer/vbox/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+focus_neighbor_left = NodePath("../../HBoxContainer5/music")
 focus_neighbor_right = NodePath("../../menu")
+toggle_mode = true
+button_pressed = true
+texture_normal = SubResource("AtlasTexture_oiatc")
+texture_pressed = SubResource("AtlasTexture_mg3m2")
 
 [node name="menu" type="TextureButton" parent="GUI/settings/MarginContainer/vbox"]
 layout_mode = 2
 size_flags_horizontal = 0
-focus_neighbor_left = NodePath("../HBoxContainer5/volume")
+focus_neighbor_left = NodePath("../HBoxContainer6/sfx")
 focus_neighbor_right = NodePath("../HBoxContainer/fullscreen")
 texture_normal = SubResource("AtlasTexture_g8g3n")
 texture_focused = SubResource("AtlasTexture_8u0te")
 
 [node name="ground" type="TileMapLayer" parent="GUI"]
-tile_map_data = PackedByteArray("AAAKAAgAAAANAAEAAAAKAAkAAAANAAIAAAAKAAoAAAANAAIAAAARAAgAAAAPAAEAAAARAAkAAAAPAAIAAAARAAoAAAAPAAIAAAAJAAYAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAQAAAAAAAAAAAASAAYAAAAAAAAAAAASAAUAAAAAAAAAAAASAAQAAAAAAAAAAAALAAgAAAAOAAEAAAAMAAgAAAAOAAEAAAANAAgAAAAOAAEAAAAOAAgAAAAOAAEAAAAPAAgAAAAOAAEAAAAQAAgAAAAOAAEAAAAJAAcAAAAAAAAAAAASAAcAAAAAAAAAAAAKAAsAAAANAAIAAAARAAsAAAAPAAIAAAA=")
+tile_map_data = PackedByteArray("AAAKAAgAAAANAAEAAAAKAAkAAAANAAIAAAAKAAoAAAANAAIAAAARAAgAAAAPAAEAAAARAAkAAAAPAAIAAAARAAoAAAAPAAIAAAAJAAYAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAQAAAAAAAAAAAASAAYAAAAAAAAAAAASAAUAAAAAAAAAAAASAAQAAAAAAAAAAAALAAgAAAAOAAEAAAAMAAgAAAAOAAEAAAANAAgAAAAOAAEAAAAOAAgAAAAOAAEAAAAPAAgAAAAOAAEAAAAQAAgAAAAOAAEAAAAJAAcAAAAAAAAAAAASAAcAAAAAAAAAAAAKAAsAAAANAAIAAAARAAsAAAAPAAIAAAAKAAIAAAANAAMAAAARAAIAAAAPAAMAAAARAAAAAAAPAAIAAAARAAEAAAAPAAIAAAAKAAEAAAANAAIAAAAKAAAAAAANAAIAAAAMAAIAAAAOAAMAAAANAAIAAAAOAAMAAAAOAAIAAAAOAAMAAAAPAAIAAAAOAAMAAAAQAAIAAAAOAAMAAAALAAIAAAAOAAMAAAA=")
 tile_set = SubResource("TileSet_ojb7r")
 
 [node name="player_sprite" type="AnimatedSprite2D" parent="GUI"]
@@ -696,7 +697,7 @@ autoplay = "idle"
 flip_h = true
 
 [node name="arrow" type="AnimatedSprite2D" parent="GUI"]
-position = Vector2(55, 89)
+position = Vector2(55, 94)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_qe12f")
 autoplay = "default"
@@ -706,17 +707,20 @@ autoplay = "default"
 [node name="info_ui" parent="HUD/inGameUi" index="1"]
 visible = false
 
-[node name="pause_ui" parent="HUD/inGameUi" index="2"]
-can_pause = false
-
 [node name="death_ui" parent="HUD/inGameUi" index="3"]
 visible = false
 
+[node name="audio_component" type="Node" parent="."]
+script = ExtResource("19_mg3m2")
+metadata/_custom_type_script = "uid://wy5pqqkxool0"
+
+[connection signal="ready" from="." to="audio_component" method="play_audio" binds= ["menu_music", Vector2(1, 1)]]
+[connection signal="tree_exited" from="." to="audio_component" method="toggle_audio" binds= ["menu_music", false]]
 [connection signal="pressed" from="GUI/main/MarginContainer/vbox/play" to="GUI/main/MarginContainer/vbox/play/scene_transitor" method="trans_change_scene"]
 [connection signal="toggled" from="GUI/settings/MarginContainer/vbox/HBoxContainer/fullscreen" to="GUI/settings" method="_on_fullscreen_toggled"]
 [connection signal="pressed" from="GUI/settings/MarginContainer/vbox/HBoxContainer2/resolution" to="GUI/settings" method="_on_resolution_pressed"]
 [connection signal="toggled" from="GUI/settings/MarginContainer/vbox/HBoxContainer3/screen_shake" to="GUI/settings" method="_on_screen_shake_toggled"]
-[connection signal="pressed" from="GUI/settings/MarginContainer/vbox/HBoxContainer4/volume" to="GUI/settings" method="_on_sfx_volume_pressed"]
-[connection signal="pressed" from="GUI/settings/MarginContainer/vbox/HBoxContainer5/volume" to="GUI/settings" method="_on_music_volume_pressed"]
+[connection signal="toggled" from="GUI/settings/MarginContainer/vbox/HBoxContainer5/music" to="GUI/settings" method="_on_music_toggled"]
+[connection signal="toggled" from="GUI/settings/MarginContainer/vbox/HBoxContainer6/sfx" to="GUI/settings" method="_on_sfx_toggled"]
 
 [editable path="HUD"]
