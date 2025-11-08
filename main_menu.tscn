@@ -605,7 +605,7 @@ label_settings = SubResource("LabelSettings_8qtwp")
 [node name="resolution_text" type="Label" parent="GUI/settings/MarginContainer/vbox/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "1600x900"
+text = "1280x720"
 label_settings = SubResource("LabelSettings_8qtwp")
 
 [node name="resolution" type="TextureButton" parent="GUI/settings/MarginContainer/vbox/HBoxContainer2"]

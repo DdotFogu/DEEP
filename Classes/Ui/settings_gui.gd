@@ -18,7 +18,7 @@ var res_options := {
 	5: Vector2(1600, 900),
 	6: Vector2(1920, 1080)
 }
-var res_selection := 5
+var res_selection := 3
 
 func _ready() -> void:
 	res_selection = global.res_scale

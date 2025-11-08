@@ -11,6 +11,6 @@ var sfx : bool = true
 
 # settings
 var screen_shake : bool = true
-var res_scale : int = 5
+var res_scale : int = 3
 var sfx_volume : int = 5
 var music_volume : int = 5
