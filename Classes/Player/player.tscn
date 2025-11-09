@@ -464,7 +464,11 @@ metadata/_custom_type_script = "uid://fwd0snk35wo3"
 
 [connection signal="hurtbox_hit" from="hurtbox_component" to="health_component" method="damage"]
 [connection signal="death" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["die"]]
+[connection signal="death" from="health_component" to="audio_component" method="play_audio" binds= ["player_dies"]]
 [connection signal="took_damage" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["flash"]]
+[connection signal="took_damage" from="health_component" to="audio_component" method="play_audio" binds= ["player_hurt"]]
 [connection signal="projectile_fired" from="projectile_component" to="projectile_component/AnimationPlayer" method="play" binds= ["fire"]]
+[connection signal="projectile_fired" from="projectile_component" to="audio_component" method="play_audio" binds= ["player_shoot"]]
+[connection signal="Entered" from="state_machine/jump" to="audio_component" method="play_audio" binds= ["player_jump"]]
 [connection signal="Entered" from="state_machine/stun" to="state_machine/stun/AnimationPlayer" method="play" binds= ["enter"]]
 [connection signal="Exited" from="state_machine/stun" to="state_machine/stun/AnimationPlayer" method="play" binds= ["exit"]]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://vyebku1doq2"]
+[gd_scene load_steps=28 format=3 uid="uid://vyebku1doq2"]
 
 [ext_resource type="Script" uid="uid://d2t1mpxw7sxop" path="res://Classes/Enemies/base_enemy.gd" id="1_il0y1"]
 [ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="2_afpru"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="5_562lq"]
 [ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="6_6phxm"]
 [ext_resource type="Script" uid="uid://xguj3aga2d5m" path="res://Classes/Components/health_component.gd" id="7_lywp3"]
+[ext_resource type="Script" uid="uid://wy5pqqkxool0" path="res://Classes/Components/audio_component.gd" id="8_il0y1"]
 [ext_resource type="Script" uid="uid://bmmnvlqmtdoq6" path="res://Classes/State/state_machine.gd" id="8_sjv8d"]
 [ext_resource type="Script" uid="uid://orhfywad7py6" path="res://Classes/State/stun.gd" id="9_hwutw"]
 [ext_resource type="Script" uid="uid://da1fu34lqwtxg" path="res://Classes/Enemies/Ghost/ghost_dead.gd" id="11_il0y1"]
@@ -194,6 +195,20 @@ tracks/2/keys = {
 "method": &"spawn_skull"
 }]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../audio_component")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["ghost_death", Vector2(0.9, 1.1)],
+"method": &"play_audio"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ndsoh"]
 _data = {
@@ -254,6 +269,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_lpnh3")
 }
 
+[node name="audio_component" type="Node" parent="."]
+script = ExtResource("8_il0y1")
+metadata/_custom_type_script = "uid://wy5pqqkxool0"
+
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("8_sjv8d")
 initial_state = NodePath("move")
@@ -278,4 +297,5 @@ metadata/_custom_type_script = "uid://fwd0snk35wo3"
 
 [connection signal="hurtbox_hit" from="hurtbox_component" to="health_component" method="damage"]
 [connection signal="death" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["die"]]
+[connection signal="took_damage" from="health_component" to="audio_component" method="play_audio" binds= ["enemy_damage"]]
 [connection signal="Entered" from="state_machine/dead" to="state_machine/dead/AnimationPlayer" method="play" binds= ["dead"]]

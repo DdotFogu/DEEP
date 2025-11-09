@@ -6,6 +6,7 @@ func enter(_msg:={}):
 		Transitioned.emit(self, 'idle')
 		return
 	
+	Entered.emit()
 	animation.play('jump')
 	body.velocity.y -= stats.jump_height
 

@@ -1,39 +1,86 @@
-[gd_scene load_steps=9 format=3 uid="uid://6a6p8aiedigr"]
+[gd_scene load_steps=18 format=3 uid="uid://6a6p8aiedigr"]
 
 [ext_resource type="Script" uid="uid://bbtf5ktgu32ol" path="res://Classes/sound_manager.gd" id="1_g5net"]
-[ext_resource type="AudioStream" uid="uid://87rab66eq6h6" path="res://Assets/sounds/shoot.wav" id="2_mdjn0"]
-[ext_resource type="AudioStream" uid="uid://5maisd02hxia" path="res://Assets/sounds/hit.wav" id="3_22ksp"]
-[ext_resource type="AudioStream" uid="uid://bskea0c4s1bux" path="res://Assets/sounds/jump.wav" id="4_ndygv"]
-[ext_resource type="AudioStream" uid="uid://by57uayrlrh35" path="res://Assets/sounds/jump_long.wav" id="5_h8btt"]
-[ext_resource type="AudioStream" uid="uid://kt18f6j1vorq" path="res://Assets/sounds/land_hard.wav" id="6_7jwsb"]
-[ext_resource type="AudioStream" uid="uid://dk4ee42v3qcr8" path="res://Assets/sounds/dungeon_music.mp3" id="7_h42hm"]
-[ext_resource type="AudioStream" uid="uid://ql58yger4oj1" path="res://Assets/sounds/menu_music.mp3" id="8_lxsk3"]
+[ext_resource type="AudioStream" uid="uid://p70y6pnttyx7" path="res://Assets/sounds/sfx/game/enemy/ghost/ghost_death.mp3" id="2_1ekrc"]
+[ext_resource type="AudioStream" uid="uid://dri0fv1bwcfhc" path="res://Assets/sounds/sfx/game/enemy/frog/frog_jump.mp3" id="2_26nrr"]
+[ext_resource type="AudioStream" uid="uid://sfcxhcxpqqui" path="res://Assets/sounds/sfx/game/enemy/crawler/crawler_land.mp3" id="2_e8map"]
+[ext_resource type="AudioStream" uid="uid://bi1wq4hdymghq" path="res://Assets/sounds/sfx/game/door_enter.mp3" id="2_h42hm"]
+[ext_resource type="AudioStream" uid="uid://cihutropg2ljt" path="res://Assets/sounds/sfx/game/enemy/crawler/crawler_scream.mp3" id="2_j1tqm"]
+[ext_resource type="AudioStream" uid="uid://bxk823lux8yrf" path="res://Assets/sounds/sfx/game/player/player_shoot.mp3" id="2_lxsk3"]
+[ext_resource type="AudioStream" uid="uid://c2y6enyerac72" path="res://Assets/sounds/sfx/game/projectile_hit.mp3" id="2_m3oho"]
+[ext_resource type="AudioStream" uid="uid://bgpm8n8sf2kp3" path="res://Assets/sounds/sfx/game/player/player_jump.mp3" id="2_rt03n"]
+[ext_resource type="AudioStream" uid="uid://jrq6raswmlub" path="res://Assets/sounds/sfx/game/player/player_hurt.mp3" id="2_vgaxf"]
+[ext_resource type="AudioStream" uid="uid://do4x5rt0myyh5" path="res://Assets/sounds/sfx/game/player/player_dies.mp3" id="2_xrcvc"]
+[ext_resource type="AudioStream" uid="uid://ca0s5nkha8hwt" path="res://Assets/sounds/sfx/ui/ui_select.mp3" id="4_ndygv"]
+[ext_resource type="AudioStream" uid="uid://p3jcvtnl13q2" path="res://Assets/sounds/sfx/ui/ui_next.mp3" id="5_h8btt"]
+[ext_resource type="AudioStream" uid="uid://bjo67856nc6vv" path="res://Assets/sounds/sfx/ui/ui_pause.mp3" id="6_7jwsb"]
+[ext_resource type="AudioStream" uid="uid://dk4ee42v3qcr8" path="res://Assets/sounds/music/dungeon_music.mp3" id="7_h42hm"]
+[ext_resource type="AudioStream" uid="uid://dtg4gs1dvi1rw" path="res://Assets/sounds/music/death_music.mp3" id="8_70tky"]
+[ext_resource type="AudioStream" uid="uid://ql58yger4oj1" path="res://Assets/sounds/music/menu_music.mp3" id="8_lxsk3"]
 
 [node name="audio_manager" type="Node"]
 process_mode = 3
 script = ExtResource("1_g5net")
 
-[node name="shoot" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_mdjn0")
+[node name="ghost_death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_1ekrc")
+volume_db = -25.0
 bus = &"SFX"
 
-[node name="hit" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_22ksp")
-volume_db = -5.0
+[node name="frog_jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_26nrr")
+volume_db = -30.0
 bus = &"SFX"
 
-[node name="jump" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_ndygv")
+[node name="crawler_land" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_e8map")
+volume_db = -10.0
 bus = &"SFX"
 
-[node name="jump_long" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_h8btt")
-volume_db = -5.0
+[node name="crawler_scream" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_j1tqm")
+volume_db = -20.0
 bus = &"SFX"
 
-[node name="land_hard" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_7jwsb")
+[node name="enemy_damage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_vgaxf")
+volume_db = -25.0
 bus = &"SFX"
+
+[node name="player_dies" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_xrcvc")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="player_hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_vgaxf")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="player_jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_rt03n")
+volume_db = -30.0
+bus = &"SFX"
+
+[node name="projectile_hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_m3oho")
+bus = &"SFX"
+
+[node name="player_shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_lxsk3")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="door_enter" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_h42hm")
+volume_db = -20.0
+bus = &"SFX"
+
+[node name="death_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_70tky")
+volume_db = -15.0
+bus = &"Music"
+parameters/looping = true
 
 [node name="dungeon_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_h42hm")
@@ -46,3 +93,17 @@ stream = ExtResource("8_lxsk3")
 volume_db = -10.0
 bus = &"Music"
 parameters/looping = true
+
+[node name="ui_select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ndygv")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="ui_next" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_h8btt")
+bus = &"SFX"
+
+[node name="ui_pause" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_7jwsb")
+volume_db = -10.0
+bus = &"SFX"

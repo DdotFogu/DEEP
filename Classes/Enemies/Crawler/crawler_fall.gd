@@ -15,6 +15,7 @@ func _ready() -> void:
 	add_child(timer)
 
 func enter(_msg:={}):
+	Entered.emit()
 	body.rotation = 0.0
 	body.velocity = Vector2.ZERO
 	animation.play('fall')

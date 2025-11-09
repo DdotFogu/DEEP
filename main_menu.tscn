@@ -605,7 +605,7 @@ label_settings = SubResource("LabelSettings_8qtwp")
 [node name="resolution_text" type="Label" parent="GUI/settings/MarginContainer/vbox/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "1280x720"
+text = "960x540"
 label_settings = SubResource("LabelSettings_8qtwp")
 
 [node name="resolution" type="TextureButton" parent="GUI/settings/MarginContainer/vbox/HBoxContainer2"]
@@ -686,11 +686,11 @@ texture_normal = SubResource("AtlasTexture_g8g3n")
 texture_focused = SubResource("AtlasTexture_8u0te")
 
 [node name="ground" type="TileMapLayer" parent="GUI"]
-tile_map_data = PackedByteArray("AAAKAAgAAAANAAEAAAAKAAkAAAANAAIAAAAKAAoAAAANAAIAAAARAAgAAAAPAAEAAAARAAkAAAAPAAIAAAARAAoAAAAPAAIAAAAJAAYAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAQAAAAAAAAAAAASAAYAAAAAAAAAAAASAAUAAAAAAAAAAAASAAQAAAAAAAAAAAALAAgAAAAOAAEAAAAMAAgAAAAOAAEAAAANAAgAAAAOAAEAAAAOAAgAAAAOAAEAAAAPAAgAAAAOAAEAAAAQAAgAAAAOAAEAAAAJAAcAAAAAAAAAAAASAAcAAAAAAAAAAAAKAAsAAAANAAIAAAARAAsAAAAPAAIAAAAKAAIAAAANAAMAAAARAAIAAAAPAAMAAAARAAAAAAAPAAIAAAARAAEAAAAPAAIAAAAKAAEAAAANAAIAAAAKAAAAAAANAAIAAAAMAAIAAAAOAAMAAAANAAIAAAAOAAMAAAAOAAIAAAAOAAMAAAAPAAIAAAAOAAMAAAAQAAIAAAAOAAMAAAALAAIAAAAOAAMAAAA=")
+tile_map_data = PackedByteArray("AAAKAAgAAAANAAEAAAAKAAkAAAANAAIAAAAKAAoAAAANAAIAAAARAAgAAAAPAAEAAAARAAkAAAAPAAIAAAARAAoAAAAPAAIAAAAJAAYAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAQAAAAAAAAAAAASAAYAAAAAAAAAAAASAAUAAAAAAAAAAAASAAQAAAAAAAAAAAALAAgAAAAOAAEAAAAMAAgAAAAOAAEAAAANAAgAAAAOAAEAAAAOAAgAAAAOAAEAAAAPAAgAAAAOAAEAAAAQAAgAAAAOAAEAAAAJAAcAAAAAAAAAAAASAAcAAAAAAAAAAAAKAAsAAAANAAIAAAARAAsAAAAPAAIAAAAKAAIAAAANAAMAAAARAAIAAAAPAAMAAAARAAAAAAAPAAIAAAARAAEAAAAPAAIAAAAKAAEAAAANAAIAAAAKAAAAAAANAAIAAAAMAAIAAAAOAAMAAAANAAIAAAAOAAMAAAAOAAIAAAAOAAMAAAAPAAIAAAAOAAMAAAAQAAIAAAAOAAMAAAALAAIAAAAOAAMAAAAOAAYAAAAKAAgAAAAOAAcAAAAKAAkAAAAPAAYAAAALAAgAAAAPAAcAAAALAAkAAAAQAAYAAAAMAAgAAAAQAAcAAAAMAAkAAAAKAAUAAAABAAcAAAAKAAYAAAABAAcAAAAKAAQAAAABAAcAAAARAAQAAAABAAcAAAARAAUAAAABAAcAAAARAAYAAAABAAcAAAARAAcAAAABAAgAAAAKAAcAAAABAAgAAAAKAAMAAAABAAYAAAARAAMAAAABAAYAAAAMAAcAAAAPAAkAAAALAAYAAAAOAAgAAAALAAcAAAAOAAkAAAAMAAYAAAAPAAgAAAALAAQAAAAIAAYAAAALAAUAAAAIAAcAAAAMAAQAAAAJAAYAAAAMAAUAAAAJAAcAAAAPAAQAAAAIAAYAAAAPAAUAAAAIAAcAAAAQAAQAAAAJAAYAAAAQAAUAAAAJAAcAAAA=")
 tile_set = SubResource("TileSet_ojb7r")
 
 [node name="player_sprite" type="AnimatedSprite2D" parent="GUI"]
-position = Vector2(259, 124)
+position = Vector2(216, 124)
 sprite_frames = SubResource("SpriteFrames_8u0te")
 animation = &"idle"
 autoplay = "idle"
@@ -716,11 +716,20 @@ metadata/_custom_type_script = "uid://wy5pqqkxool0"
 
 [connection signal="ready" from="." to="audio_component" method="play_audio" binds= ["menu_music", Vector2(1, 1)]]
 [connection signal="tree_exited" from="." to="audio_component" method="toggle_audio" binds= ["menu_music", false]]
+[connection signal="focus_changed" from="GUI" to="audio_component" method="play_audio" binds= ["ui_next"]]
 [connection signal="pressed" from="GUI/main/MarginContainer/vbox/play" to="GUI/main/MarginContainer/vbox/play/scene_transitor" method="trans_change_scene"]
+[connection signal="pressed" from="GUI/main/MarginContainer/vbox/play" to="audio_component" method="play_audio" binds= ["ui_select"]]
+[connection signal="pressed" from="GUI/main/MarginContainer/vbox/settings" to="audio_component" method="play_audio" binds= ["ui_select"]]
+[connection signal="pressed" from="GUI/settings/MarginContainer/vbox/HBoxContainer/fullscreen" to="audio_component" method="play_audio" binds= ["ui_select"]]
 [connection signal="toggled" from="GUI/settings/MarginContainer/vbox/HBoxContainer/fullscreen" to="GUI/settings" method="_on_fullscreen_toggled"]
 [connection signal="pressed" from="GUI/settings/MarginContainer/vbox/HBoxContainer2/resolution" to="GUI/settings" method="_on_resolution_pressed"]
+[connection signal="pressed" from="GUI/settings/MarginContainer/vbox/HBoxContainer2/resolution" to="audio_component" method="play_audio" binds= ["ui_select"]]
+[connection signal="pressed" from="GUI/settings/MarginContainer/vbox/HBoxContainer3/screen_shake" to="audio_component" method="play_audio" binds= ["ui_select"]]
 [connection signal="toggled" from="GUI/settings/MarginContainer/vbox/HBoxContainer3/screen_shake" to="GUI/settings" method="_on_screen_shake_toggled"]
+[connection signal="pressed" from="GUI/settings/MarginContainer/vbox/HBoxContainer5/music" to="audio_component" method="play_audio" binds= ["ui_select"]]
 [connection signal="toggled" from="GUI/settings/MarginContainer/vbox/HBoxContainer5/music" to="GUI/settings" method="_on_music_toggled"]
+[connection signal="renamed" from="GUI/settings/MarginContainer/vbox/HBoxContainer6/sfx" to="audio_component" method="play_audio" binds= ["ui_select"]]
 [connection signal="toggled" from="GUI/settings/MarginContainer/vbox/HBoxContainer6/sfx" to="GUI/settings" method="_on_sfx_toggled"]
+[connection signal="pressed" from="GUI/settings/MarginContainer/vbox/menu" to="audio_component" method="play_audio" binds= ["ui_select"]]
 
 [editable path="HUD"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://ck302ev1vkikk"]
+[gd_scene load_steps=32 format=3 uid="uid://ck302ev1vkikk"]
 
 [ext_resource type="Script" uid="uid://d2t1mpxw7sxop" path="res://Classes/Enemies/base_enemy.gd" id="1_p7j42"]
 [ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="2_n0rej"]
 [ext_resource type="Texture2D" uid="uid://csc4lbkl6ail8" path="res://Assets/sprites/character_sheets.png" id="3_1xr2u"]
 [ext_resource type="Script" uid="uid://bye0snk55abo6" path="res://Classes/Components/hurtbox_component.gd" id="6_s85ss"]
 [ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="7_ufvuv"]
+[ext_resource type="Script" uid="uid://wy5pqqkxool0" path="res://Classes/Components/audio_component.gd" id="8_0ckbo"]
 [ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="8_yn54d"]
 [ext_resource type="Script" uid="uid://xguj3aga2d5m" path="res://Classes/Components/health_component.gd" id="9_qwt8m"]
 [ext_resource type="Script" uid="uid://bmmnvlqmtdoq6" path="res://Classes/State/state_machine.gd" id="10_204po"]
@@ -276,6 +277,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_lpnh3")
 }
 
+[node name="audio_component" type="Node" parent="."]
+script = ExtResource("8_0ckbo")
+metadata/_custom_type_script = "uid://wy5pqqkxool0"
+
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("10_204po")
 initial_state = NodePath("idle")
@@ -312,5 +317,6 @@ autostart = true
 
 [connection signal="hurtbox_hit" from="hurtbox_component" to="health_component" method="damage"]
 [connection signal="death" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["die"]]
+[connection signal="took_damage" from="health_component" to="audio_component" method="play_audio" binds= ["enemy_damage"]]
 [connection signal="Entered" from="state_machine/dead" to="state_machine/dead/AnimationPlayer" method="play" binds= ["dead"]]
 [connection signal="timeout" from="state_machine/jump/jump_timer" to="state_machine" method="state_change" binds= ["jump", {}]]

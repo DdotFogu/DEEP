@@ -35,8 +35,9 @@ func reset_proj():
 	proj_reset.emit()
 
 func _process(_delta: float) -> void:
-	if proj_stats.wall_destory and get_last_slide_collision() and grace_timer.is_stopped(): 
-		lifetime_over.emit()
+	if proj_stats.wall_destory and get_last_slide_collision() and grace_timer.is_stopped() and !lifetime_timer.is_stopped():
+		audio.play_sound('projectile_hit')
+		lifetime_finished()
 	
 	var normal = velocity.normalized()
 	var sprite : AnimatedSprite2D = get_node('sprite')

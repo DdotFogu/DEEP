@@ -22,6 +22,7 @@ func _ready() -> void:
 
 func toggle_cursor(enable := true):
 	if !cursor: return
+	if !enable: audio.play_sound('ui_select')
 	cursor.visible = enable
 
 func _input(event: InputEvent) -> void:

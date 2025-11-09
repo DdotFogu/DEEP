@@ -36,9 +36,10 @@ metadata/_custom_type_script = "uid://cc41turmiaqus"
 top_level = true
 z_index = 1
 
+[connection signal="focus_changed" from="HUD/inGameUi/death_ui" to="game_manager/audio_component" method="play_audio" binds= ["ui_next"]]
 [connection signal="current_stage_finished" from="game_manager" to="game_manager/transition_component" method="await_transition"]
 [connection signal="ready" from="game_manager" to="game_manager/audio_component" method="play_audio" binds= ["dungeon_music", Vector2(1, 1)]]
-[connection signal="transition_end" from="game_manager/transition_component" to="game_manager" method="add_to_floor_level"]
 [connection signal="transition_end" from="game_manager/transition_component" to="game_manager" method="set_new_stage"]
+[connection signal="transition_end" from="game_manager/transition_component" to="game_manager" method="add_to_floor_level"]
 
 [editable path="HUD"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://w3ipc7py6m28"]
+[gd_scene load_steps=42 format=3 uid="uid://w3ipc7py6m28"]
 
 [ext_resource type="Script" uid="uid://in8tujef0tp8" path="res://Classes/Ui/heart_ui.gd" id="1_8sq4i"]
 [ext_resource type="Script" uid="uid://7lx6mwopb5au" path="res://Classes/Ui/transition_ui.gd" id="1_37p78"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://4fu2e8evfgyo" path="res://Classes/Ui/pause_ui.gd" id="7_rftc2"]
 [ext_resource type="Script" uid="uid://05ejb25jlq22" path="res://Classes/Ui/death_ui.gd" id="9_g10ll"]
 [ext_resource type="Texture2D" uid="uid://d3tw1r6jx1n4g" path="res://Assets/sprites/arrow_cursor.png" id="9_gpiub"]
+[ext_resource type="Script" uid="uid://wy5pqqkxool0" path="res://Classes/Components/audio_component.gd" id="11_amv7k"]
 
 [sub_resource type="Animation" id="Animation_hkwek"]
 length = 0.001
@@ -582,7 +583,17 @@ horizontal_alignment = 1
 vertical_alignment = 2
 script = ExtResource("6_1xsix")
 
+[node name="audio_component" type="Node" parent="."]
+script = ExtResource("11_amv7k")
+metadata/_custom_type_script = "uid://wy5pqqkxool0"
+
+[connection signal="focus_changed" from="inGameUi/pause_ui" to="audio_component" method="play_audio" binds= ["ui_next"]]
 [connection signal="paused" from="inGameUi/pause_ui" to="inGameUi/pause_ui" method="show"]
+[connection signal="paused" from="inGameUi/pause_ui" to="audio_component" method="play_audio" binds= ["ui_pause"]]
 [connection signal="unpaused" from="inGameUi/pause_ui" to="inGameUi/pause_ui" method="hide"]
+[connection signal="pressed" from="inGameUi/pause_ui/MarginContainer/vbox/retry" to="audio_component" method="play_audio" binds= ["ui_select"]]
+[connection signal="pressed" from="inGameUi/pause_ui/MarginContainer/vbox/menu" to="audio_component" method="play_audio" binds= ["ui_select"]]
 [connection signal="death_emitted" from="inGameUi/death_ui" to="inGameUi/death_ui/AnimationPlayer" method="play" binds= ["death"]]
 [connection signal="restart" from="inGameUi/death_ui" to="inGameUi/death_ui/AnimationPlayer" method="play" binds= ["RESET"]]
+[connection signal="pressed" from="inGameUi/death_ui/buttons/vbox/retry" to="audio_component" method="play_audio" binds= ["ui_select"]]
+[connection signal="pressed" from="inGameUi/death_ui/buttons/vbox/menu" to="audio_component" method="play_audio" binds= ["ui_select"]]

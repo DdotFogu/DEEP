@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dklrwxtbrjp2y"]
+[gd_scene load_steps=28 format=3 uid="uid://dklrwxtbrjp2y"]
 
 [ext_resource type="Script" uid="uid://b31jhjwl2t1hs" path="res://Classes/Projectile/base_projectile.gd" id="1_gr1k4"]
 [ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="2_en3vu"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="7_8edil"]
 [ext_resource type="Script" uid="uid://8c23l3np7d80" path="res://Classes/State/projectile_move.gd" id="7_celr6"]
 [ext_resource type="Script" uid="uid://dktfc6cudjw6g" path="res://Classes/State/proj_idle.gd" id="8_vis68"]
+[ext_resource type="Script" uid="uid://wy5pqqkxool0" path="res://Classes/Components/audio_component.gd" id="12_2ynas"]
 
 [sub_resource type="Resource" id="Resource_8edil"]
 script = ExtResource("2_fgy4q")
@@ -266,6 +267,10 @@ metadata/_custom_type_script = "uid://fwd0snk35wo3"
 [node name="idle" type="Node" parent="state_machine"]
 script = ExtResource("8_vis68")
 metadata/_custom_type_script = "uid://fwd0snk35wo3"
+
+[node name="audio_component" type="Node" parent="."]
+script = ExtResource("12_2ynas")
+metadata/_custom_type_script = "uid://wy5pqqkxool0"
 
 [connection signal="lifetime_over" from="." to="health_component/AnimationPlayer" method="play" binds= ["die"]]
 [connection signal="proj_reset" from="." to="health_component/AnimationPlayer" method="play" binds= ["reset"]]

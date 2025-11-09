@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://ue62rlumwdxh"]
+[gd_scene load_steps=21 format=3 uid="uid://ue62rlumwdxh"]
 
 [ext_resource type="Texture2D" uid="uid://cgykkhvaey5x3" path="res://Assets/sprites/door.png" id="1_cujke"]
 [ext_resource type="Script" uid="uid://disgmj8sw5l0w" path="res://Classes/Components/interact_componet.gd" id="1_uwr46"]
 [ext_resource type="Texture2D" uid="uid://d3tw1r6jx1n4g" path="res://Assets/sprites/arrow_cursor.png" id="2_8mw4d"]
+[ext_resource type="Script" uid="uid://wy5pqqkxool0" path="res://Classes/Components/audio_component.gd" id="3_8mw4d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0htd"]
 size = Vector2(10, 3)
@@ -102,16 +103,16 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_w68fp")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_f7xnv")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_2x40e")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_np3ea")
 }],
 "loop": false,
@@ -138,10 +139,15 @@ position = Vector2(0.5, -11)
 sprite_frames = SubResource("SpriteFrames_w6spb")
 autoplay = "default"
 
+[node name="audio_component" type="Node" parent="."]
+script = ExtResource("3_8mw4d")
+metadata/_custom_type_script = "uid://wy5pqqkxool0"
+
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -8)
 sprite_frames = SubResource("SpriteFrames_w68fp")
 animation = &"open"
 
+[connection signal="interact" from="interact_component" to="audio_component" method="play_audio" binds= ["door_enter"]]
 [connection signal="target_entered" from="interact_component" to="sprite" method="play" binds= ["open"]]
 [connection signal="target_exited" from="interact_component" to="sprite" method="play" binds= ["close"]]

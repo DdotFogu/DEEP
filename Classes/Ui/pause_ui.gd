@@ -9,6 +9,15 @@ signal unpaused
 
 @export var can_pause : bool = true
 
+var last_focus_owner: Control = null
+signal focus_changed
+
+func _process(_delta: float) -> void:
+	var focus_owner = get_viewport().gui_get_focus_owner()
+	if focus_owner != last_focus_owner and focus_owner != null:
+		last_focus_owner = focus_owner
+		focus_changed.emit()
+
 func _ready() -> void:
 	visible = false
 	menu.pressed.connect(func(): global.transition_ui.transition_scene(load("res://main_menu.tscn")))
