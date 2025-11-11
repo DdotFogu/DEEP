@@ -6,7 +6,7 @@ signal restart
 @onready var retry: TextureButton = $buttons/vbox/retry
 @onready var menu: TextureButton = $buttons/vbox/menu
 @onready var quit: TextureButton = $buttons/vbox/quit
-@onready var title: Label = $info/title
+@onready var info_label: Label = $info/MarginContainer/VBoxContainer/info_label
 
 @onready var arrow: AnimatedSprite2D = $buttons/arrow
 
@@ -45,9 +45,9 @@ func restart_game() -> void:
 		signal_bus.player_ammo_changed.emit(4)
 
 func update_info():
-	title.text = """you died
-		levels cleared : {l}
-		time taken : {t}""".format({
+	info_label.text = """
+		levels cleared: {l}
+		time taken: {t}""".format({
 		"l": global.levels_cleared,
 		"t": "%.1f" % global.current_time
 	})

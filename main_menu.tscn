@@ -467,10 +467,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.050980393, 0.050980393, 0.050980393, 1)
+color = Color(0.0509804, 0.0509804, 0.0509804, 1)
 
 [node name="watermark" type="Label" parent="GUI"]
-offset_left = 6.9999995
+offset_left = 7.0
 offset_top = 169.0
 offset_right = 159.0
 offset_bottom = 185.0
@@ -698,7 +698,7 @@ flip_h = true
 
 [node name="arrow" type="AnimatedSprite2D" parent="GUI"]
 position = Vector2(55, 94)
-rotation = 1.5707964
+rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_qe12f")
 autoplay = "default"
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://vyebku1doq2"]
+[gd_scene load_steps=34 format=3 uid="uid://vyebku1doq2"]
 
 [ext_resource type="Script" uid="uid://d2t1mpxw7sxop" path="res://Classes/Enemies/base_enemy.gd" id="1_il0y1"]
 [ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="2_afpru"]
@@ -15,21 +15,48 @@
 
 [sub_resource type="Resource" id="Resource_il0y1"]
 script = ExtResource("2_afpru")
+max_health = 1
 max_speed = 25.0
 acceleration = 24.635
 friction = 25.0
+jump_height = 100.0
+invuln_time = 1.0
 metadata/_custom_type_script = "uid://bgvbi4djtrhg2"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f50g0"]
-size = Vector2(12, 13)
+size = Vector2(14, 13)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ynjix"]
 atlas = ExtResource("3_ynjix")
-region = Rect2(224, 48, 16, 16)
+region = Rect2(256, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lywp3"]
+atlas = ExtResource("3_ynjix")
+region = Rect2(272, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjv8d"]
+atlas = ExtResource("3_ynjix")
+region = Rect2(288, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwutw"]
+atlas = ExtResource("3_ynjix")
+region = Rect2(304, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_il0y1"]
 atlas = ExtResource("3_ynjix")
-region = Rect2(208, 48, 16, 16)
+region = Rect2(256, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w06sj"]
+atlas = ExtResource("3_ynjix")
+region = Rect2(272, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_562lq"]
+atlas = ExtResource("3_ynjix")
+region = Rect2(288, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6phxm"]
+atlas = ExtResource("3_ynjix")
+region = Rect2(304, 48, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_afpru"]
 atlas = ExtResource("3_ynjix")
@@ -40,6 +67,15 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ynjix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lywp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjv8d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwutw")
 }],
 "loop": true,
 "name": &"dead",
@@ -48,6 +84,15 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_il0y1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w06sj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_562lq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6phxm")
 }],
 "loop": true,
 "name": &"move",
@@ -227,14 +272,15 @@ metadata/_custom_type_script = "uid://c2djvxdicte83"
 [node name="collision" type="CollisionShape2D" parent="."]
 visible = false
 z_index = 1
-position = Vector2(0, -0.5)
+position = Vector2(-1, -0.5)
 shape = SubResource("RectangleShape2D_f50g0")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -1)
 sprite_frames = SubResource("SpriteFrames_08cr8")
-animation = &"move"
+animation = &"dead"
 autoplay = "move"
+frame_progress = 0.18025
 
 [node name="hurtbox_component" type="Area2D" parent="."]
 position = Vector2(0, 5)

@@ -17,10 +17,12 @@
 
 [sub_resource type="Resource" id="Resource_8yfrw"]
 script = ExtResource("2_n0rej")
+max_health = 1
 max_speed = 25.0
 acceleration = 5.0
 friction = 25.0
 jump_height = 150.0
+invuln_time = 1.0
 metadata/_custom_type_script = "uid://bgvbi4djtrhg2"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f50g0"]
@@ -221,6 +223,20 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [true, false, true, false, true, false, true, false, true, false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../audio_component")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["ghost_death", Vector2(0.9, 1.1)],
+"method": &"play_audio"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ndsoh"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://w3ipc7py6m28"]
+[gd_scene load_steps=43 format=3 uid="uid://w3ipc7py6m28"]
 
 [ext_resource type="Script" uid="uid://in8tujef0tp8" path="res://Classes/Ui/heart_ui.gd" id="1_8sq4i"]
 [ext_resource type="Script" uid="uid://7lx6mwopb5au" path="res://Classes/Ui/transition_ui.gd" id="1_37p78"]
@@ -60,7 +60,7 @@ region = Rect2(3, 39, 44, 6)
 
 [sub_resource type="LabelSettings" id="LabelSettings_61f8s"]
 font = ExtResource("5_a2258")
-font_color = Color(0.21960784, 0.21960784, 0.21960784, 1)
+font_color = Color(0.219608, 0.219608, 0.219608, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gpiub"]
 atlas = ExtResource("3_8sq4i")
@@ -149,6 +149,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("buttons/arrow:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_gpiub"]
 resource_name = "death"
@@ -198,10 +210,10 @@ tracks/3/path = NodePath("buttons/vbox:modulate")
 tracks/3/interp = 0
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.5, 1.6333333, 1.75, 1.8666667, 2),
+"times": PackedFloat32Array(0, 1.5, 1.63333, 1.75, 1.86667, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0.20000005), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.79999995), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0.2), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.8), Color(1, 1, 1, 1)]
 }
 tracks/4/type = "method"
 tracks/4/imported = false
@@ -216,6 +228,18 @@ tracks/4/keys = {
 "args": [],
 "method": &"update_info"
 }]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("buttons/arrow:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_amv7k"]
@@ -268,6 +292,10 @@ animations = [{
 }]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gpiub"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w71nf"]
+atlas = ExtResource("3_8sq4i")
+region = Rect2(103, 96, 153, 22)
 
 [node name="HUD" type="CanvasLayer"]
 
@@ -360,16 +388,16 @@ max_value = 4.0
 value = 4.0
 texture_under = SubResource("AtlasTexture_g10ll")
 texture_progress = SubResource("AtlasTexture_g10ll")
-tint_under = Color(0.050980393, 0.050980393, 0.050980393, 1)
+tint_under = Color(0.0509804, 0.0509804, 0.0509804, 1)
 
 [node name="counter" type="Label" parent="inGameUi/info_ui/MarginContainer/MarginContainer/HBoxContainer/hearts"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.999999
+offset_left = 2.0
 offset_top = 2.0
-offset_right = 39.436897
+offset_right = 39.4369
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -516,7 +544,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_37p78")
 [node name="color" type="ColorRect" parent="inGameUi/death_ui/PanelContainer"]
 layout_mode = 2
 mouse_filter = 2
-color = Color(0.050980393, 0.050980393, 0.050980393, 1)
+color = Color(0.0509804, 0.0509804, 0.0509804, 1)
 
 [node name="buttons" type="MarginContainer" parent="inGameUi/death_ui"]
 layout_mode = 1
@@ -558,8 +586,9 @@ texture_normal = SubResource("AtlasTexture_ap7yk")
 texture_focused = SubResource("AtlasTexture_5kc73")
 
 [node name="arrow" type="AnimatedSprite2D" parent="inGameUi/death_ui/buttons"]
+visible = false
 position = Vector2(56, 72)
-rotation = 1.5707964
+rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_amv7k")
 autoplay = "default"
 
@@ -572,16 +601,30 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_gpiub")
 
-[node name="title" type="Label" parent="inGameUi/death_ui/info"]
+[node name="MarginContainer" type="MarginContainer" parent="inGameUi/death_ui/info"]
+layout_mode = 2
+theme_override_constants/margin_left = 75
+
+[node name="VBoxContainer" type="VBoxContainer" parent="inGameUi/death_ui/info/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "you died
-levels cleared : 15
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+
+[node name="title_texture" type="TextureRect" parent="inGameUi/death_ui/info/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_w71nf")
+
+[node name="info_label" type="Label" parent="inGameUi/death_ui/info/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "levels cleared : 15
 time take: 60.0"
 label_settings = SubResource("LabelSettings_1xsix")
 horizontal_alignment = 1
 vertical_alignment = 2
-script = ExtResource("6_1xsix")
 
 [node name="audio_component" type="Node" parent="."]
 script = ExtResource("11_amv7k")

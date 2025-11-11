@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://6a6p8aiedigr"]
+[gd_scene load_steps=19 format=3 uid="uid://6a6p8aiedigr"]
 
 [ext_resource type="Script" uid="uid://bbtf5ktgu32ol" path="res://Classes/sound_manager.gd" id="1_g5net"]
 [ext_resource type="AudioStream" uid="uid://p70y6pnttyx7" path="res://Assets/sounds/sfx/game/enemy/ghost/ghost_death.mp3" id="2_1ekrc"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://cihutropg2ljt" path="res://Assets/sounds/sfx/game/enemy/crawler/crawler_scream.mp3" id="2_j1tqm"]
 [ext_resource type="AudioStream" uid="uid://bxk823lux8yrf" path="res://Assets/sounds/sfx/game/player/player_shoot.mp3" id="2_lxsk3"]
 [ext_resource type="AudioStream" uid="uid://c2y6enyerac72" path="res://Assets/sounds/sfx/game/projectile_hit.mp3" id="2_m3oho"]
+[ext_resource type="AudioStream" uid="uid://dgic7wpha7wu5" path="res://Assets/sounds/sfx/game/enemy/plant/plant_scream.mp3" id="2_mye2s"]
 [ext_resource type="AudioStream" uid="uid://bgpm8n8sf2kp3" path="res://Assets/sounds/sfx/game/player/player_jump.mp3" id="2_rt03n"]
 [ext_resource type="AudioStream" uid="uid://jrq6raswmlub" path="res://Assets/sounds/sfx/game/player/player_hurt.mp3" id="2_vgaxf"]
 [ext_resource type="AudioStream" uid="uid://do4x5rt0myyh5" path="res://Assets/sounds/sfx/game/player/player_dies.mp3" id="2_xrcvc"]
@@ -21,6 +22,11 @@
 [node name="audio_manager" type="Node"]
 process_mode = 3
 script = ExtResource("1_g5net")
+
+[node name="plant_scream" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_mye2s")
+volume_db = -20.0
+bus = &"SFX"
 
 [node name="ghost_death" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_1ekrc")
@@ -78,19 +84,19 @@ bus = &"SFX"
 
 [node name="death_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_70tky")
-volume_db = -15.0
+volume_db = -20.0
 bus = &"Music"
 parameters/looping = true
 
 [node name="dungeon_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_h42hm")
-volume_db = -10.0
+volume_db = -15.0
 bus = &"Music"
 parameters/looping = true
 
 [node name="menu_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_lxsk3")
-volume_db = -10.0
+volume_db = -15.0
 bus = &"Music"
 parameters/looping = true
 

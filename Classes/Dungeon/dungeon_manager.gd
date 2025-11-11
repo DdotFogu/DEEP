@@ -15,12 +15,18 @@ signal current_stage_finished
 	load("res://Classes/Dungeon/levels/level_03.tscn"),
 	load("res://Classes/Dungeon/levels/level_04.tscn"),
 	load("res://Classes/Dungeon/levels/level_05.tscn"),
+	load("res://Classes/Dungeon/levels/level_06.tscn"),
+	load("res://Classes/Dungeon/levels/level_07.tscn"),
+	load("res://Classes/Dungeon/levels/level_08.tscn"),
+	load("res://Classes/Dungeon/levels/level_09.tscn"),
+	load("res://Classes/Dungeon/levels/level_10.tscn"),
 ]
 
 @export var floor_enemy_counts := {
 	0: 3,
 	6: 5,
 	9: 7,
+	12: 8,
 }
 
 var pickabled_stages: Array

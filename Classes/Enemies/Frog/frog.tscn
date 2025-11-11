@@ -1,9 +1,8 @@
-[gd_scene load_steps=40 format=3 uid="uid://b06uuiqx4mlmk"]
+[gd_scene load_steps=38 format=3 uid="uid://b06uuiqx4mlmk"]
 
 [ext_resource type="Script" uid="uid://d2t1mpxw7sxop" path="res://Classes/Enemies/base_enemy.gd" id="1_pa3eg"]
 [ext_resource type="Script" uid="uid://bgvbi4djtrhg2" path="res://Classes/stat_sheet.gd" id="2_7v481"]
 [ext_resource type="Texture2D" uid="uid://csc4lbkl6ail8" path="res://Assets/sprites/character_sheets.png" id="3_0jagc"]
-[ext_resource type="Script" uid="uid://bagit57t2ya26" path="res://Classes/Components/target_detection_component.gd" id="5_b2rhi"]
 [ext_resource type="Script" uid="uid://bye0snk55abo6" path="res://Classes/Components/hurtbox_component.gd" id="5_jtgbq"]
 [ext_resource type="Script" uid="uid://ckmbl6r4aef7j" path="res://Classes/Components/hitbox_component.gd" id="6_s8t26"]
 [ext_resource type="Script" uid="uid://c5vkfnu5l6jx7" path="res://Classes/attack.gd" id="7_ha7de"]
@@ -18,9 +17,12 @@
 
 [sub_resource type="Resource" id="Resource_8yfrw"]
 script = ExtResource("2_7v481")
+max_health = 1
+max_speed = 100.0
 acceleration = 5.0
 friction = 25.0
 jump_height = 200.0
+invuln_time = 1.0
 metadata/_custom_type_script = "uid://bgvbi4djtrhg2"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f50g0"]
@@ -136,9 +138,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_b2rhi"]
-radius = 75.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ory6w"]
 size = Vector2(10, 10)
 
@@ -207,25 +206,13 @@ tracks/3/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/4/type = "value"
+tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../target_dection_component/collision:disabled")
+tracks/4/path = NodePath("../state_machine/jump/jump_timer")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../state_machine/jump/jump_timer")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -284,6 +271,20 @@ tracks/1/keys = {
 "update": 1,
 "values": [true, false, true, false, true, false, true, false, true, false, true]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../audio_component")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["ghost_death", Vector2(0.9, 1.1)],
+"method": &"play_audio"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ndsoh"]
 _data = {
@@ -307,16 +308,6 @@ shape = SubResource("RectangleShape2D_f50g0")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_08cr8")
 animation = &"jump"
-
-[node name="target_dection_component" type="Area2D" parent="."]
-collision_layer = 0
-script = ExtResource("5_b2rhi")
-los_check_interval = 0.1
-metadata/_custom_type_script = "uid://bagit57t2ya26"
-
-[node name="collision" type="CollisionShape2D" parent="target_dection_component"]
-shape = SubResource("CircleShape2D_b2rhi")
-debug_color = Color(1, 1, 1, 0)
 
 [node name="hurtbox_component" type="Area2D" parent="."]
 position = Vector2(0, 5)
@@ -388,7 +379,6 @@ metadata/_custom_type_script = "uid://bvc2jvk1wur4t"
 wait_time = 2.0
 autostart = true
 
-[connection signal="target_entered" from="target_dection_component" to="state_machine" method="state_change" binds= ["frog_tongue", {}]]
 [connection signal="hurtbox_hit" from="hurtbox_component" to="health_component" method="damage"]
 [connection signal="death" from="health_component" to="health_component/AnimationPlayer" method="play" binds= ["die"]]
 [connection signal="took_damage" from="health_component" to="audio_component" method="play_audio" binds= ["enemy_damage"]]
