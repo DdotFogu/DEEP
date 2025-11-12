@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bsps4wnoox3fb" path="res://Classes/Dungeon/base_level.gd" id="1_8d6rw"]
 [ext_resource type="Texture2D" uid="uid://coh4f1ewimmmg" path="res://Assets/sprites/dungeon_tileset.png" id="2_hrg3l"]
-[ext_resource type="Script" uid="uid://d0xjwtxpq4r5q" path="res://Classes/Pickup/ammo_pickup.gd" id="3_epe43"]
 [ext_resource type="PackedScene" uid="uid://hsk4hy2rnrkf" path="res://Classes/Hazards/spikes.tscn" id="4_onri0"]
-[ext_resource type="PackedScene" uid="uid://cheqatgfprcfd" path="res://Classes/Hazards/saw_spawn.tscn" id="5_wu4jc"]
 [ext_resource type="Texture2D" uid="uid://bapq84bnxeq4l" path="res://Assets/sprites/dev_blocks.png" id="6_5uyth"]
 [ext_resource type="PackedScene" uid="uid://bvmpb2w3hvuw4" path="res://Classes/Props/start_door.tscn" id="7_e1edw"]
 [ext_resource type="PackedScene" uid="uid://8ummr1aq51gg" path="res://Classes/Props/entrance_door.tscn" id="8_aey53"]
@@ -128,6 +126,9 @@ class_name base_pickup
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ob0v4"]
 size = Vector2(4, 6)
 
+[sub_resource type="Resource" id="Resource_fplmc"]
+metadata/__load_path__ = "res://Classes/Pickup/ammo_pickup.gd"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mvp3"]
 size = Vector2(10, 3)
 
@@ -140,7 +141,7 @@ _bundled = {
 "node_count": 4,
 "node_paths": [NodePath("."), NodePath("."), NodePath("./pickup_component")],
 "nodes": PackedInt32Array(-1, -1, 1, 0, -1, 4, 2, 0, 3, 1, 4, 2, 5, 3, 0, 1073741824, 0, 7, 6, -1, 2, 8, 4, 9, 5, 0, 1073741825, 0, 11, 10, -1, 3, 12, 6, 13, 7, 14, 8, 0, 1073741826, 0, 16, 15, -1, 2, 17, 9, 18, 10, 0),
-"variants": [16, 0, SubResource("GDScript_62h37"), "uid://c2djvxdicte83", false, SubResource("RectangleShape2D_ob0v4"), 16, ExtResource("3_epe43"), "uid://disgmj8sw5l0w", SubResource("RectangleShape2D_3mvp3"), Color(1, 1, 0, 0.419608)],
+"variants": [16, 0, SubResource("GDScript_62h37"), "uid://c2djvxdicte83", false, SubResource("RectangleShape2D_ob0v4"), 16, SubResource("Resource_fplmc"), "uid://disgmj8sw5l0w", SubResource("RectangleShape2D_3mvp3"), Color(1, 1, 0, 0.419608)],
 "version": 3
 }
 
@@ -151,7 +152,6 @@ scenes/1/scene = SubResource("PackedScene_vwi3s")
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_3g2dk"]
 resource_name = "hazards"
 scenes/1/scene = ExtResource("4_onri0")
-scenes/2/scene = ExtResource("5_wu4jc")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f50g0"]
 texture = ExtResource("6_5uyth")
@@ -317,6 +317,9 @@ class_name base_pickup
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_swtgx"]
 size = Vector2(4, 6)
 
+[sub_resource type="Resource" id="Resource_7ghgq"]
+metadata/__load_path__ = "res://Classes/Pickup/ammo_pickup.gd"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7tm2"]
 size = Vector2(10, 3)
 
@@ -329,7 +332,7 @@ _bundled = {
 "node_count": 4,
 "node_paths": [NodePath("."), NodePath("."), NodePath("./pickup_component")],
 "nodes": PackedInt32Array(-1, -1, 1, 0, -1, 4, 2, 0, 3, 1, 4, 2, 5, 3, 0, 1073741824, 0, 7, 6, -1, 2, 8, 4, 9, 5, 0, 1073741825, 0, 11, 10, -1, 3, 12, 6, 13, 7, 14, 8, 0, 1073741826, 0, 16, 15, -1, 2, 17, 9, 18, 10, 0),
-"variants": [16, 0, SubResource("GDScript_22jvo"), "uid://c2djvxdicte83", false, SubResource("RectangleShape2D_swtgx"), 16, ExtResource("3_epe43"), "uid://disgmj8sw5l0w", SubResource("RectangleShape2D_p7tm2"), Color(1, 1, 0, 0.419608)],
+"variants": [16, 0, SubResource("GDScript_22jvo"), "uid://c2djvxdicte83", false, SubResource("RectangleShape2D_swtgx"), 16, SubResource("Resource_7ghgq"), "uid://disgmj8sw5l0w", SubResource("RectangleShape2D_p7tm2"), Color(1, 1, 0, 0.419608)],
 "version": 3
 }
 
@@ -340,7 +343,6 @@ scenes/1/scene = SubResource("PackedScene_rxoh1")
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_vrae4"]
 resource_name = "hazards"
 scenes/1/scene = ExtResource("4_onri0")
-scenes/2/scene = ExtResource("5_wu4jc")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_67kx4"]
 texture = ExtResource("6_5uyth")
